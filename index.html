@@ -108,35 +108,36 @@
     .btn-outline:hover, .btn-outline:active { background: #1A2A44; color: var(--c-white); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(26,42,68,0.15); }
 
     /* ============================================================
-       3. PRELOADER — خلفية بنية فاتحة
+       3. PRELOADER — خلفية بنية أغمق + اسم فخم
        ============================================================ */
     .preloader {
       position: fixed; inset: 0; z-index: 9999; 
-      background: #D4C0AE; /* ← اللون البني الفاتح */
+      background: #8C7362; /* ← لون بني أغمق وفخم */
       display: flex; align-items: center; justify-content: center;
       transition: opacity .6s ease, visibility .6s;
     }
     .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
     
     .preloader-content {
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
       animation: fadeUp 1s var(--ease-spring) forwards;
     }
     .preloader img {
-      width: 120px;
+      width: 130px;
       height: auto;
-      /* إضافة ظل خفيف للوجو باش يبرز على الخلفية البنية */
-      filter: drop-shadow(0 4px 12px rgba(62, 47, 38, 0.3));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
     }
     .preloader-text {
       font-family: var(--font-deco);
-      font-size: 32px;
+      font-size: 48px; /* ← الاسم ولى كبير */
       font-weight: 700;
-      letter-spacing: 2px;
-      /* لون بني غامق مع توهج أبيض باش يبان على الخلفية الفاتحة */
-      color: #3E2F26;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+      letter-spacing: 3px;
+      /* ← لون ذهبي/أبيض متدرج فخم */
+      background: linear-gradient(135deg, #FFFFFF, #E8C87A, #D4AF37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       text-align: center;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     @keyframes fadeUp { 
       0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
@@ -169,6 +170,7 @@
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; transition: height .3s ease; padding: 0 16px; position: relative; }
     .navbar.scrolled .nav-inner { height: 70px; }
 
+    /* تعديل: الاسم على اليمين واللوجو على اليسار */
     .logo { 
       position: absolute; 
       left: 50%; 
@@ -680,6 +682,9 @@
       .nav-inner { height: 65px; }
       .navbar.scrolled .nav-inner { height: 58px; }
       .nav-links { top: 65px; }
+      
+      .preloader-text { font-size: 32px; } /* تصغير الاسم في شاشة التحميل للهواتف الصغيرة */
+      .preloader img { width: 90px; }
     }
 
     @media (prefers-reduced-motion: reduce) { 
@@ -702,9 +707,10 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
+      <!-- Name then Logo (to place logo on the left in RTL) -->
       <a href="#hero" class="logo">
-        <img src="logoo.png" alt="Haute et jolie">
         <span class="logo-text">Haute et Jolie</span>
+        <img src="logoo.png" alt="Haute et jolie">
       </a>
       <nav>
         <ul class="nav-links" id="navLinks">
