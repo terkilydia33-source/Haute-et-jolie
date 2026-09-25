@@ -116,7 +116,8 @@
     }
     .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
     .preloader img {
-      width: 150px;
+      width: 120px;
+      height: auto;
       animation: fadeUp 1s var(--ease-spring) forwards;
     }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -148,7 +149,7 @@
     .navbar.scrolled .nav-inner { height: 58px; }
 
     .logo { display: flex; align-items: center; flex-shrink: 0; }
-    .logo img { height: 40px; width: auto; object-fit: contain; }
+    .logo img { height: 50px; width: auto; object-fit: contain; }
 
     .nav-links {
       display: flex; align-items: center; gap: 20px;
@@ -384,7 +385,7 @@
     @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1.3fr; text-align: left; } }
     .footer-logo { margin-bottom: 12px; display: flex; justify-content: center; }
     @media (min-width: 640px) { .footer-logo { justify-content: flex-start; } }
-    .footer-logo img { height: 50px; width: auto; }
+    .footer-logo img { height: 70px; width: auto; }
     .footer-about { font-size: 14px; line-height: 1.8; color: var(--c-muted); max-width: 300px; margin: 0 auto 20px; }
     @media (min-width: 640px) { .footer-about { margin: 0 0 20px; } }
     .social-row { display: flex; gap: 12px; justify-content: center; }
@@ -637,7 +638,7 @@
 <body>
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
-    <img src="logo.png" alt="Haute et jolie">
+    <img src="logoo.png" alt="Haute et jolie">
   </div>
 
   <!-- MARQUEE -->
@@ -646,7 +647,7 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
-      <a href="#hero" class="logo"><img src="logo.png" alt="Haute et jolie"></a>
+      <a href="#hero" class="logo"><img src="logoo.png" alt="Haute et jolie"></a>
       <nav>
         <ul class="nav-links" id="navLinks">
           <li><a href="#hero" class="active">Accueil</a></li>
@@ -726,7 +727,7 @@
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <div class="footer-logo"><img src="logo.png" alt="Haute et jolie"></div>
+          <div class="footer-logo"><img src="logoo.png" alt="Haute et jolie"></div>
           <p class="footer-about">Boutique Haute et Jolie, votre destination pour des vêtements premium alliant élégance, qualité et confiance depuis 2024.</p>
           <div class="social-row">
             <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
