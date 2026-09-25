@@ -112,7 +112,7 @@
        ============================================================ */
     .preloader {
       position: fixed; inset: 0; z-index: 9999; 
-      background: #8C7362; /* ← لون بني أغمق وفخم */
+      background: #8C7362;
       display: flex; align-items: center; justify-content: center;
       transition: opacity .6s ease, visibility .6s;
     }
@@ -129,10 +129,9 @@
     }
     .preloader-text {
       font-family: var(--font-deco);
-      font-size: 48px; /* ← الاسم ولى كبير */
+      font-size: 48px;
       font-weight: 700;
       letter-spacing: 3px;
-      /* ← لون ذهبي/أبيض متدرج فخم */
       background: linear-gradient(135deg, #FFFFFF, #E8C87A, #D4AF37);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -167,10 +166,9 @@
       transition: all .4s ease;
     }
     .navbar.scrolled { box-shadow: 0 8px 30px rgba(0,0,0,0.15); padding: 2px 0; }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; transition: height .3s ease; padding: 0 16px; position: relative; }
-    .navbar.scrolled .nav-inner { height: 70px; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 90px; transition: height .3s ease; padding: 0 16px; position: relative; }
+    .navbar.scrolled .nav-inner { height: 80px; }
 
-    /* تعديل: الاسم على اليمين واللوجو على اليسار */
     .logo { 
       position: absolute; 
       left: 50%; 
@@ -180,11 +178,11 @@
       gap: 12px; 
       flex-shrink: 0; 
     }
-    .logo img { height: 65px; width: auto; object-fit: contain; transition: height .3s ease; }
-    .navbar.scrolled .logo img { height: 55px; }
+    .logo img { height: 80px; width: auto; object-fit: contain; transition: height .3s ease; }
+    .navbar.scrolled .logo img { height: 70px; }
     .logo-text {
       font-family: var(--font-deco);
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       letter-spacing: 1px;
       background: linear-gradient(135deg, #FFFFFF, #E8C87A, #FFFFFF);
@@ -194,21 +192,21 @@
       white-space: nowrap;
       text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    .navbar.scrolled .logo-text { font-size: 20px; }
+    .navbar.scrolled .logo-text { font-size: 24px; }
 
     .nav-links {
-      display: flex; align-items: center; gap: 20px;
-      position: fixed; top: 80px; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center;
+      position: fixed; top: 90px; left: 0; right: 0; bottom: 0;
       background: rgba(92, 75, 62, 0.98); backdrop-filter: blur(12px);
-      flex-direction: column; justify-content: flex-start; align-items: center;
-      padding: 30px 20px;
+      flex-direction: column; justify-content: center; /* توسيط عمودي */
+      padding: 20px;
       transform: translateX(-100%);
       opacity: 0;
       transition: all .4s cubic-bezier(.25, .8, .25, 1);
       overflow-y: auto;
       pointer-events: none;
       z-index: 999;
-      gap: 4px;
+      gap: 10px;
     }
     .nav-links.open {
       transform: translateX(0);
@@ -224,7 +222,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 12px; /* مسافة بين الأيقونة والاسم */
     }
+    .nav-links a i { font-size: 20px; }
     .nav-links a:hover, .nav-links a:active, .nav-links a.active { color: #FFFFFF; }
 
     .nav-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
@@ -262,7 +262,7 @@
     .hero {
       min-height: 100dvh; display: flex; align-items: center; position: relative;
       background: linear-gradient(145deg, #E8EAF0 0%, #F2D5C4 30%, #F9E7D2 70%, #D4E0E8 100%);
-      padding-top: 80px; overflow: hidden;
+      padding-top: 90px; overflow: hidden;
     }
     .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; padding: 20px 16px 40px; }
     .hero-eyebrow { background: linear-gradient(135deg, #C8942B, #D45A6A, #7A4B9A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 14px; font-weight: 800; letter-spacing: .1em; margin-bottom: 18px; opacity: 0; animation: floatUp 1s .2s var(--ease) forwards; }
@@ -674,16 +674,17 @@
       .modal-box { padding: 24px 16px; }
       .checkout-modal-box { padding: 20px 16px; }
       
-      .logo { gap: 8px; }
-      .logo img { height: 45px; }
-      .navbar.scrolled .logo img { height: 40px; }
-      .logo-text { font-size: 16px; }
-      .navbar.scrolled .logo-text { font-size: 14px; }
-      .nav-inner { height: 65px; }
-      .navbar.scrolled .nav-inner { height: 58px; }
-      .nav-links { top: 65px; }
+      /* تعديلات الهاتف */
+      .nav-inner { height: 70px; }
+      .navbar.scrolled .nav-inner { height: 60px; }
+      .nav-links { top: 70px; }
       
-      .preloader-text { font-size: 32px; } /* تصغير الاسم في شاشة التحميل للهواتف الصغيرة */
+      .logo img { height: 55px; }
+      .navbar.scrolled .logo img { height: 48px; }
+      .logo-text { font-size: 18px; }
+      .navbar.scrolled .logo-text { font-size: 16px; }
+      
+      .preloader-text { font-size: 32px; }
       .preloader img { width: 90px; }
     }
 
@@ -714,10 +715,10 @@
       </a>
       <nav>
         <ul class="nav-links" id="navLinks">
-          <li><a href="#hero" class="active">الرئيسية</a></li>
-          <li><a href="#men">ملابس</a></li>
-          <li><a href="#sale">تخفيضات</a></li>
-          <li><a href="#women">آراء العملاء</a></li>
+          <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+          <li><a href="#men"><i class="fa-solid fa-shirt"></i> ملابس</a></li>
+          <li><a href="#sale"><i class="fa-solid fa-tag"></i> تخفيضات</a></li>
+          <li><a href="#women"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
         </ul>
       </nav>
       <div class="nav-actions">
