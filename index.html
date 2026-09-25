@@ -108,7 +108,7 @@
     .btn-outline:hover, .btn-outline:active { background: #1A2A44; color: var(--c-white); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(26,42,68,0.15); }
 
     /* ============================================================
-       3. PRELOADER — خلفية بنية أغمق + اسم فخم
+       3. PRELOADER
        ============================================================ */
     .preloader {
       position: fixed; inset: 0; z-index: 9999; 
@@ -157,7 +157,7 @@
     @keyframes marqueeMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* ============================================================
-       5. NAVBAR — Mobile First
+       5. NAVBAR — Mobile First (تم إصلاح التداخل)
        ============================================================ */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
@@ -166,23 +166,30 @@
       transition: all .4s ease;
     }
     .navbar.scrolled { box-shadow: 0 8px 30px rgba(0,0,0,0.15); padding: 2px 0; }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 90px; transition: height .3s ease; padding: 0 16px; position: relative; }
-    .navbar.scrolled .nav-inner { height: 80px; }
-
-    .logo { 
-      position: absolute; 
-      left: 50%; 
-      transform: translateX(-50%); 
+    
+    .nav-inner { 
       display: flex; 
       align-items: center; 
-      gap: 12px; 
-      flex-shrink: 0; 
+      justify-content: space-between; /* ← هذا يحل مشكل التداخل */
+      height: 80px; 
+      transition: height .3s ease; 
+      padding: 0 16px; 
+      position: relative; 
     }
-    .logo img { height: 80px; width: auto; object-fit: contain; transition: height .3s ease; }
-    .navbar.scrolled .logo img { height: 70px; }
+    .navbar.scrolled .nav-inner { height: 70px; }
+
+    .logo { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      flex-shrink: 1; /* يسمح للوجو بالتصغير إذا لزم الأمر */
+      min-width: 0;
+    }
+    .logo img { height: 60px; width: auto; object-fit: contain; transition: height .3s ease; flex-shrink: 0; }
+    .navbar.scrolled .logo img { height: 50px; }
     .logo-text {
       font-family: var(--font-deco);
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: 1px;
       background: linear-gradient(135deg, #FFFFFF, #E8C87A, #FFFFFF);
@@ -191,22 +198,33 @@
       transition: font-size .3s ease;
       white-space: nowrap;
       text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .navbar.scrolled .logo-text { font-size: 24px; }
+    .navbar.scrolled .logo-text { font-size: 18px; }
 
+    /* القائمة الجانبية (Sidebar) */
     .nav-links {
-      display: flex; align-items: center;
-      position: fixed; top: 90px; left: 0; right: 0; bottom: 0;
+      display: flex; 
+      align-items: center;
+      position: fixed; 
+      top: 80px; 
+      right: 0; /* ← تظهر من اليمين */
+      bottom: 0;
+      width: 280px; /* ← عرض القائمة الجانبية */
+      max-width: 85vw;
       background: rgba(92, 75, 62, 0.98); backdrop-filter: blur(12px);
-      flex-direction: column; justify-content: center; /* توسيط عمودي */
-      padding: 20px;
-      transform: translateX(-100%);
+      flex-direction: column; 
+      justify-content: flex-start;
+      padding: 40px 20px;
+      transform: translateX(100%); /* ← مخفية في اليمين */
       opacity: 0;
       transition: all .4s cubic-bezier(.25, .8, .25, 1);
       overflow-y: auto;
       pointer-events: none;
-      z-index: 999;
-      gap: 10px;
+      z-index: 1001; /* فوق الخلفية المعتمة */
+      gap: 8px;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.3);
     }
     .nav-links.open {
       transform: translateX(0);
@@ -215,19 +233,30 @@
     }
     .nav-links a {
       font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.8);
-      padding: 16px 0; width: 100%; text-align: center;
+      padding: 16px 0; width: 100%; text-align: right;
       border-bottom: 1px solid rgba(255,255,255,0.1);
       transition: color .25s;
       min-height: 56px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 12px; /* مسافة بين الأيقونة والاسم */
+      justify-content: flex-start;
+      gap: 12px; 
+      padding-right: 10px;
     }
-    .nav-links a i { font-size: 20px; }
+    .nav-links a i { font-size: 20px; width: 24px; text-align: center; }
     .nav-links a:hover, .nav-links a:active, .nav-links a.active { color: #FFFFFF; }
 
-    .nav-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    /* الخلفية المعتمة للقائمة */
+    .nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity .4s ease;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .cart-btn { 
       font-size: 22px; color: #FFFFFF; position: relative; 
       transition: all .3s;
@@ -262,7 +291,7 @@
     .hero {
       min-height: 100dvh; display: flex; align-items: center; position: relative;
       background: linear-gradient(145deg, #E8EAF0 0%, #F2D5C4 30%, #F9E7D2 70%, #D4E0E8 100%);
-      padding-top: 90px; overflow: hidden;
+      padding-top: 80px; overflow: hidden;
     }
     .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; padding: 20px 16px 40px; }
     .hero-eyebrow { background: linear-gradient(135deg, #C8942B, #D45A6A, #7A4B9A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 14px; font-weight: 800; letter-spacing: .1em; margin-bottom: 18px; opacity: 0; animation: floatUp 1s .2s var(--ease) forwards; }
@@ -277,7 +306,7 @@
     @keyframes floatUp { from { opacity: 0; transform: translateY(30px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
     /* ============================================================
-       7. STATS — Mobile responsive
+       7. STATS
        ============================================================ */
     .stats { background: var(--c-white); padding: 40px 0; border-bottom: 1px solid var(--c-line); }
     .stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; text-align: center; }
@@ -458,7 +487,7 @@
     .footer-bottom a:active { color: #C8942B; }
 
     /* ============================================================
-       12. MODALS — Mobile first
+       12. MODALS
        ============================================================ */
     .modal-overlay { 
       position: fixed; inset: 0; 
@@ -637,6 +666,8 @@
         overflow-y: visible;
         width: auto;
         height: auto;
+        box-shadow: none;
+        border: none;
       }
       .nav-links a { 
         width: auto; padding: 6px 0; 
@@ -644,6 +675,7 @@
         min-height: auto;
       }
       .hamburger { display: none; }
+      .nav-overlay { display: none; }
       .products-grid { grid-template-columns: repeat(4,1fr); gap: 24px; }
       .sale-grid { grid-template-columns: repeat(3,1fr); gap: 28px; }
       .section { padding: 100px 0; }
@@ -679,8 +711,8 @@
       .navbar.scrolled .nav-inner { height: 60px; }
       .nav-links { top: 70px; }
       
-      .logo img { height: 55px; }
-      .navbar.scrolled .logo img { height: 48px; }
+      .logo img { height: 50px; }
+      .navbar.scrolled .logo img { height: 45px; }
       .logo-text { font-size: 18px; }
       .navbar.scrolled .logo-text { font-size: 16px; }
       
@@ -708,25 +740,30 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
-      <!-- Name then Logo (to place logo on the left in RTL) -->
+      <!-- Logo + Store Name -->
       <a href="#hero" class="logo">
         <span class="logo-text">Haute et Jolie</span>
         <img src="logoo.png" alt="Haute et jolie">
       </a>
-      <nav>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
-          <li><a href="#men"><i class="fa-solid fa-shirt"></i> ملابس</a></li>
-          <li><a href="#sale"><i class="fa-solid fa-tag"></i> تخفيضات</a></li>
-          <li><a href="#women"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
-        </ul>
-      </nav>
       <div class="nav-actions">
         <button class="cart-btn" id="cartBtn" aria-label="السلة"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count" id="cartCount">0</span></button>
         <button class="hamburger" id="hamburger" aria-label="القائمة"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
+
+  <!-- OVERLAY للقائمة الجانبية -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- NAVIGATION LINKS (Sidebar) -->
+  <nav>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+      <li><a href="#men"><i class="fa-solid fa-shirt"></i> ملابس</a></li>
+      <li><a href="#sale"><i class="fa-solid fa-tag"></i> تخفيضات</a></li>
+      <li><a href="#women"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
+    </ul>
+  </nav>
 
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1010,15 +1047,27 @@
       document.getElementById('toTop').classList.toggle('show', y > 600); 
     }, { passive: true });
     
+    // تعديل فتح وغلق القائمة الجانبية + الخلفية المعتمة
+    function closeMenu() {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('navOverlay').classList.remove('open');
+    }
+
     document.getElementById('hamburger').addEventListener('click', () => { 
-      document.getElementById('hamburger').classList.toggle('open'); 
-      document.getElementById('navLinks').classList.toggle('open'); 
+      const isOpen = document.getElementById('navLinks').classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        document.getElementById('hamburger').classList.add('open'); 
+        document.getElementById('navLinks').classList.add('open'); 
+        document.getElementById('navOverlay').classList.add('open');
+      }
     });
     
-    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => { 
-      document.getElementById('hamburger').classList.remove('open'); 
-      document.getElementById('navLinks').classList.remove('open'); 
-    }));
+    document.getElementById('navOverlay').addEventListener('click', closeMenu);
+    
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
     
     document.getElementById('toTop').addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
