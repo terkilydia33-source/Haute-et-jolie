@@ -125,11 +125,9 @@
        4. MARQUEE
        ============================================================ */
     .marquee {
-      background: linear-gradient(135deg, #1A2A44, #7A4B9A, #D45A6A, #C8942B, #1A8A8A);
-      background-size: 300% 300%; animation: gradientMove 6s ease infinite;
+      background-color: #5C4B3E;
       color: var(--c-white); overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 13px;
     }
-    @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .marquee-track { display: inline-flex; animation: marqueeMove 34s linear infinite; }
     .marquee-track span { display: inline-flex; align-items: center; gap: 16px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 0 28px; }
     .marquee-track span i { font-size: 5px; opacity: .6; }
@@ -140,11 +138,11 @@
        ============================================================ */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid var(--c-line);
+      background: rgba(92, 75, 62, 0.95); backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.1);
       transition: all .4s ease;
     }
-    .navbar.scrolled { box-shadow: 0 8px 30px rgba(0,0,0,0.02); padding: 2px 0; }
+    .navbar.scrolled { box-shadow: 0 8px 30px rgba(0,0,0,0.15); padding: 2px 0; }
     .navbar.nav-hidden { transform: translateY(-100%); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; transition: height .3s ease; padding: 0 16px; }
     .navbar.scrolled .nav-inner { height: 58px; }
@@ -155,7 +153,7 @@
     .nav-links {
       display: flex; align-items: center; gap: 20px;
       position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
+      background: rgba(92, 75, 62, 0.98); backdrop-filter: blur(12px);
       flex-direction: column; justify-content: flex-start; align-items: center;
       padding: 30px 20px;
       transform: translateX(100%);
@@ -172,20 +170,20 @@
       pointer-events: auto;
     }
     .nav-links a {
-      font-size: 18px; font-weight: 700; color: var(--c-muted);
+      font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.8);
       padding: 16px 0; width: 100%; text-align: center;
-      border-bottom: 1px solid var(--c-line);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
       transition: color .25s;
       min-height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .nav-links a:hover, .nav-links a:active, .nav-links a.active { color: #1A2A44; }
+    .nav-links a:hover, .nav-links a:active, .nav-links a.active { color: #FFFFFF; }
 
     .nav-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     .cart-btn { 
-      font-size: 20px; color: var(--c-text); position: relative; 
+      font-size: 20px; color: #FFFFFF; position: relative; 
       transition: all .3s;
       min-width: 44px;
       min-height: 44px;
@@ -207,7 +205,7 @@
       padding: 8px; min-width: 44px; min-height: 44px;
       align-items: center; justify-content: center;
     }
-    .hamburger span { width: 26px; height: 2.5px; background: var(--c-text); border-radius: 4px; transition: all .35s var(--ease); }
+    .hamburger span { width: 26px; height: 2.5px; background: #FFFFFF; border-radius: 4px; transition: all .35s var(--ease); }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(10px); }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
