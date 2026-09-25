@@ -108,16 +108,16 @@
     .btn-outline:hover, .btn-outline:active { background: #1A2A44; color: var(--c-white); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(26,42,68,0.15); }
 
     /* ============================================================
-       3. PRELOADER
+       3. PRELOADER — خلفية بنية فاتحة
        ============================================================ */
     .preloader {
-      position: fixed; inset: 0; z-index: 9999; background: var(--c-white);
+      position: fixed; inset: 0; z-index: 9999; 
+      background: #D4C0AE; /* ← اللون البني الفاتح */
       display: flex; align-items: center; justify-content: center;
       transition: opacity .6s ease, visibility .6s;
     }
     .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
     
-    /* تعديل شاشة التحميل باش تظهر اللوجو والاسم في الوسط */
     .preloader-content {
       display: flex; flex-direction: column; align-items: center; gap: 16px;
       animation: fadeUp 1s var(--ease-spring) forwards;
@@ -125,15 +125,17 @@
     .preloader img {
       width: 120px;
       height: auto;
+      /* إضافة ظل خفيف للوجو باش يبرز على الخلفية البنية */
+      filter: drop-shadow(0 4px 12px rgba(62, 47, 38, 0.3));
     }
     .preloader-text {
       font-family: var(--font-deco);
       font-size: 32px;
       font-weight: 700;
       letter-spacing: 2px;
-      background: linear-gradient(135deg, #5C4B3E, #C8942B, #5C4B3E);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      /* لون بني غامق مع توهج أبيض باش يبان على الخلفية الفاتحة */
+      color: #3E2F26;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
       text-align: center;
     }
     @keyframes fadeUp { 
@@ -167,7 +169,6 @@
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; transition: height .3s ease; padding: 0 16px; position: relative; }
     .navbar.scrolled .nav-inner { height: 70px; }
 
-    /* تعديل اللوجو باش يجي في وسط الشريط */
     .logo { 
       position: absolute; 
       left: 50%; 
@@ -671,7 +672,6 @@
       .modal-box { padding: 24px 16px; }
       .checkout-modal-box { padding: 20px 16px; }
       
-      /* تصغير اللوجو والاسم في الهواتف الصغيرة */
       .logo { gap: 8px; }
       .logo img { height: 45px; }
       .navbar.scrolled .logo img { height: 40px; }
@@ -690,7 +690,6 @@
 <body>
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
-    <!-- هنا حطينا اللوجو والاسم في الوسط مع أنيميشن -->
     <div class="preloader-content">
       <img src="logoo.png" alt="Haute et jolie">
       <div class="preloader-text">Haute et Jolie</div>
@@ -703,7 +702,6 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
-      <!-- Logo + Store Name (Centered) -->
       <a href="#hero" class="logo">
         <img src="logoo.png" alt="Haute et jolie">
         <span class="logo-text">Haute et Jolie</span>
