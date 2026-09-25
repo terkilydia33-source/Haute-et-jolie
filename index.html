@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Haute et jolie · ملابس فاخرة للرجال والنساء</title>
-  <!-- Google Fonts: Cairo (Arabic Font) -->
+  <!-- Google Fonts: Cairo (Arabic) + Cinzel (Decorative Latin) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -21,6 +21,7 @@
       --c-muted: #64748B;
       --c-line: rgba(15, 23, 42, 0.06);
       --font: 'Cairo', sans-serif;
+      --font-deco: 'Cinzel', serif;
       --radius: 16px;
       --ease: cubic-bezier(.25, .8, .25, 1);
       --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
@@ -128,7 +129,7 @@
     .marquee {
       background-color: #5C4B3E;
       color: var(--c-white); overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 13px;
-      direction: ltr; /* Keeps animation scrolling smoothly */
+      direction: ltr;
     }
     .marquee-track { display: inline-flex; animation: marqueeMove 34s linear infinite; }
     .marquee-track span { display: inline-flex; align-items: center; gap: 16px; font-weight: 700; letter-spacing: .08em; padding: 0 28px; }
@@ -144,17 +145,32 @@
       -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.1);
       transition: all .4s ease;
     }
+    /* الشريط ثابت ولا يختفي */
     .navbar.scrolled { box-shadow: 0 8px 30px rgba(0,0,0,0.15); padding: 2px 0; }
-    .navbar.nav-hidden { transform: translateY(-100%); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; transition: height .3s ease; padding: 0 16px; }
-    .navbar.scrolled .nav-inner { height: 58px; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; transition: height .3s ease; padding: 0 16px; }
+    .navbar.scrolled .nav-inner { height: 70px; }
 
-    .logo { display: flex; align-items: center; flex-shrink: 0; }
-    .logo img { height: 50px; width: auto; object-fit: contain; }
+    /* تكبير اللوجو وإضافة اسم المحل بجانبه */
+    .logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .logo img { height: 65px; width: auto; object-fit: contain; transition: height .3s ease; }
+    .navbar.scrolled .logo img { height: 55px; }
+    .logo-text {
+      font-family: var(--font-deco);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #FFFFFF, #E8C87A, #FFFFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: font-size .3s ease;
+      white-space: nowrap;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .navbar.scrolled .logo-text { font-size: 20px; }
 
     .nav-links {
       display: flex; align-items: center; gap: 20px;
-      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      position: fixed; top: 80px; left: 0; right: 0; bottom: 0;
       background: rgba(92, 75, 62, 0.98); backdrop-filter: blur(12px);
       flex-direction: column; justify-content: flex-start; align-items: center;
       padding: 30px 20px;
@@ -185,7 +201,7 @@
 
     .nav-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     .cart-btn { 
-      font-size: 20px; color: #FFFFFF; position: relative; 
+      font-size: 22px; color: #FFFFFF; position: relative; 
       transition: all .3s;
       min-width: 44px;
       min-height: 44px;
@@ -194,12 +210,12 @@
       justify-content: center;
     }
     .cart-btn:active { transform: scale(0.92); }
-    .cart-btn:hover { background: linear-gradient(135deg, #C8942B, #D45A6A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cart-btn:hover { color: #E8C87A; }
     .cart-count { 
       position: absolute; top: -4px; left: -6px; 
       background: linear-gradient(135deg, #D45A6A, #C8942B, #7A4B9A); 
-      color: var(--c-white); font-size: 10px; font-weight: 800; 
-      width: 20px; height: 20px; border-radius: 50%; 
+      color: var(--c-white); font-size: 11px; font-weight: 800; 
+      width: 22px; height: 22px; border-radius: 50%; 
       display: flex; align-items: center; justify-content: center;
     }
     .hamburger { 
@@ -207,10 +223,10 @@
       padding: 8px; min-width: 44px; min-height: 44px;
       align-items: center; justify-content: center;
     }
-    .hamburger span { width: 26px; height: 2.5px; background: #FFFFFF; border-radius: 4px; transition: all .35s var(--ease); }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger span { width: 28px; height: 3px; background: #FFFFFF; border-radius: 4px; transition: all .35s var(--ease); }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(10px); }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ============================================================
        6. HERO
@@ -218,7 +234,7 @@
     .hero {
       min-height: 100dvh; display: flex; align-items: center; position: relative;
       background: linear-gradient(145deg, #E8EAF0 0%, #F2D5C4 30%, #F9E7D2 70%, #D4E0E8 100%);
-      padding-top: 70px; overflow: hidden;
+      padding-top: 80px; overflow: hidden;
     }
     .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; padding: 20px 16px 40px; }
     .hero-eyebrow { background: linear-gradient(135deg, #C8942B, #D45A6A, #7A4B9A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 14px; font-weight: 800; letter-spacing: .1em; margin-bottom: 18px; opacity: 0; animation: floatUp 1s .2s var(--ease) forwards; }
@@ -603,7 +619,7 @@
       .products-grid { grid-template-columns: repeat(4,1fr); gap: 24px; }
       .sale-grid { grid-template-columns: repeat(3,1fr); gap: 28px; }
       .section { padding: 100px 0; }
-      .hero { padding-top: 80px; }
+      .hero { padding-top: 100px; }
       .hero-inner { padding: 20px 0 40px; }
       .hero h1 { font-size: clamp(40px, 6vw, 70px); }
       .stats-grid { grid-template-columns: repeat(4,1fr); gap: 20px; }
@@ -618,7 +634,7 @@
       .footer-bottom { flex-direction: row; justify-content: space-between; }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 450px) {
       .wrap { padding: 0 12px; }
       .product-body, .sale-body { padding: 14px 12px 16px; }
       .product-name { font-size: 14px; }
@@ -629,6 +645,16 @@
       .testimonial-slide { padding: 24px 16px; }
       .modal-box { padding: 24px 16px; }
       .checkout-modal-box { padding: 20px 16px; }
+      
+      /* تصغير اللوجو والاسم في الهواتف الصغيرة */
+      .logo { gap: 8px; }
+      .logo img { height: 45px; }
+      .navbar.scrolled .logo img { height: 40px; }
+      .logo-text { font-size: 16px; }
+      .navbar.scrolled .logo-text { font-size: 14px; }
+      .nav-inner { height: 65px; }
+      .navbar.scrolled .nav-inner { height: 58px; }
+      .nav-links { top: 65px; }
     }
 
     @media (prefers-reduced-motion: reduce) { 
@@ -648,7 +674,11 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
-      <a href="#hero" class="logo"><img src="logoo.png" alt="Haute et jolie"></a>
+      <!-- Logo + Store Name -->
+      <a href="#hero" class="logo">
+        <img src="logoo.png" alt="Haute et jolie">
+        <span class="logo-text">Haute et Jolie</span>
+      </a>
       <nav>
         <ul class="nav-links" id="navLinks">
           <li><a href="#hero" class="active">الرئيسية</a></li>
@@ -939,13 +969,10 @@
     function goToSlide(i){ const slides = carousel.querySelectorAll('.testimonial-slide'), dots = dotsWrap.querySelectorAll('button'); slides[activeSlide].classList.remove('active'); dots[activeSlide].classList.remove('active'); activeSlide = i; slides[activeSlide].classList.add('active'); dots[activeSlide].classList.add('active'); }
     setInterval(() => goToSlide((activeSlide+1) % testimonials.length), 5500);
 
-    const navbar = document.getElementById('navbar'); let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { 
       const y = window.scrollY; 
       navbar.classList.toggle('scrolled', y > 20); 
-      if(y > lastScroll && y > 180){ navbar.classList.add('nav-hidden'); } 
-      else { navbar.classList.remove('nav-hidden'); } 
-      lastScroll = y; 
       document.getElementById('toTop').classList.toggle('show', y > 600); 
     }, { passive: true });
     
