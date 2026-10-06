@@ -4,33 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Haute et jolie · ملابس فاخرة للنساء</title>
+  <link rel="icon" type="image/png" href="header.png">
+  <link rel="shortcut icon" type="image/png" href="header.png">
+  <link rel="apple-touch-icon" href="header.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ============================================================
-       PALETTE — الألوان الخمسة فقط
-       Linen #F5F1EA · Khaki #D7C9B8 · Camel #B2967D · Cocoa #7D5A44 · Espresso #4A342A
-       ============================================================ */
     :root {
       --linen: #F5F1EA;
       --khaki: #D7C9B8;
       --camel: #B2967D;
       --cocoa: #7D5A44;
       --espresso: #4A342A;
-
       --bg: var(--linen);
       --bg-alt: color-mix(in srgb, var(--khaki) 32%, var(--linen));
       --text: var(--espresso);
       --muted: var(--cocoa);
       --line: color-mix(in srgb, var(--khaki) 70%, transparent);
-
       --font: 'Cairo', sans-serif;
       --font-serif: 'Cormorant Garamond', 'Amiri', serif;
       --font-ar-serif: 'Amiri', 'Cormorant Garamond', serif;
-
       --radius: 14px;
+      --arch: 999px 999px 0 0;
       --ease: cubic-bezier(.25, .8, .25, 1);
       --container: 1240px;
       --shadow: 0 10px 34px color-mix(in srgb, var(--espresso) 10%, transparent);
@@ -44,6 +41,7 @@
       -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.7;
       touch-action: manipulation;
     }
+    section[id] { scroll-margin-top: 76px; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
@@ -55,8 +53,8 @@
 
     /* ---------- Typography ---------- */
     .section-head { text-align: center; margin-bottom: 44px; }
-    .kicker { font-size: 14px; font-weight: 700; color: var(--camel); letter-spacing: .04em; margin-bottom: 6px; display: block; }
-    .section-title { font-family: var(--font-ar-serif); font-size: clamp(30px, 5.2vw, 52px); font-weight: 700; line-height: 1.2; color: var(--espresso); }
+    .kicker { font-size: 14px; font-weight: 700; color: var(--camel); margin-bottom: 6px; display: block; }
+    .section-title { font-family: var(--font-ar-serif); font-size: clamp(32px, 5.6vw, 58px); font-weight: 700; line-height: 1.2; color: var(--espresso); }
     .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin: 12px auto 0; }
     .ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--camel); margin: 18px 0; font-size: 11px; }
     .ornament::before, .ornament::after { content: ""; width: 44px; height: 1px; background: var(--camel); }
@@ -64,7 +62,7 @@
     /* ---------- Buttons ---------- */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 14px;
-      padding: 14px 30px; font-size: 14px; font-weight: 700; letter-spacing: .04em;
+      padding: 14px 30px; font-size: 14px; font-weight: 700;
       border-radius: 4px; border: 1.5px solid transparent; min-height: 52px;
       transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
     }
@@ -72,20 +70,21 @@
     .btn:hover i.fa-arrow-left { transform: translateX(-5px); }
     .btn-dark { background: var(--espresso); color: var(--linen); }
     .btn-dark:hover { background: var(--cocoa); }
-    .btn-camel { background: var(--camel); color: var(--linen); }
-    .btn-camel:hover { background: var(--cocoa); }
+    .btn-camel { background: var(--camel); color: var(--espresso); }
+    .btn-camel:hover { background: var(--linen); }
     .btn-outline { background: transparent; border-color: var(--espresso); color: var(--espresso); }
     .btn-outline:hover { background: var(--espresso); color: var(--linen); }
     .btn:active { transform: scale(.97); }
 
     /* ---------- Preloader ---------- */
-    .preloader { position: fixed; inset: 0; z-index: 9999; background: var(--espresso); display: flex; align-items: center; justify-content: center; transition: opacity .7s ease, visibility .7s; }
-    .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader { position: fixed; inset: 0; z-index: 9999; background: var(--espresso); display: flex; align-items: center; justify-content: center; clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease) .1s, visibility 0s 1.2s; }
+    .preloader.hide { clip-path: inset(0 0 100% 0); visibility: hidden; pointer-events: none; }
     .preloader-content { display: flex; flex-direction: column; align-items: center; gap: 18px; animation: fadeUp 1s var(--ease) forwards; }
-    .preloader img { width: 120px; height: auto; }
-    .preloader-text { font-family: var(--font-serif); font-size: 46px; font-weight: 600; letter-spacing: 4px; color: var(--linen); text-align: center; }
-    .preloader-line { width: 90px; height: 1px; background: var(--camel); position: relative; overflow: hidden; }
-    .preloader-line::after { content: ""; position: absolute; inset: 0; background: var(--linen); transform: translateX(-100%); animation: load 1.2s ease-in-out infinite; }
+    .preloader img { width: 110px; height: auto; }
+    .preloader-arch { width: auto; height: auto; display: flex; align-items: center; justify-content: center; }
+    .preloader-text { font-family: var(--font-serif); font-size: 44px; font-weight: 600; letter-spacing: 4px; color: var(--linen); text-align: center; }
+    .preloader-line { width: 90px; height: 1px; background: var(--cocoa); position: relative; overflow: hidden; }
+    .preloader-line::after { content: ""; position: absolute; inset: 0; background: var(--khaki); transform: translateX(-100%); animation: load 1.2s ease-in-out infinite; }
     @keyframes load { to { transform: translateX(100%); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
@@ -112,12 +111,13 @@
     .logo img { height: 52px; width: auto; object-fit: contain; transition: height .3s ease; }
     .navbar.scrolled .logo img { height: 44px; }
     .logo-text { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: 1.5px; color: var(--linen); white-space: nowrap; line-height: 1; }
-    .logo-text small { display: block; font-family: var(--font); font-size: 9px; letter-spacing: 6px; color: var(--camel); text-align: center; margin-top: 4px; font-weight: 600; }
 
     .nav-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; }
     .cart-btn { font-size: 20px; color: var(--linen); position: relative; display: flex; align-items: center; justify-content: center; transition: color .3s; }
     .cart-btn:hover { color: var(--khaki); }
     .cart-count { position: absolute; top: 2px; left: 0; background: var(--camel); color: var(--espresso); font-size: 11px; font-weight: 800; width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .cart-count.bump { animation: bump .5s var(--ease); }
+    @keyframes bump { 40% { transform: scale(1.5); } }
 
     .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: var(--espresso); padding: 90px 0 24px; transform: translateX(100%); transition: transform .45s var(--ease); z-index: 1001; box-shadow: -10px 0 40px color-mix(in srgb, var(--espresso) 60%, transparent); overflow-y: auto; }
     .nav-links.open { transform: translateX(0); }
@@ -129,21 +129,25 @@
     .nav-overlay.open { opacity: 1; pointer-events: auto; }
 
     /* ---------- Hero ---------- */
-    .hero { position: relative; background: var(--linen); overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1fr; max-width: 1400px; margin: 0 auto; }
-    .hero-text { padding: 56px 24px 40px; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; }
-    .hero-kicker { font-size: 14px; font-weight: 700; color: var(--camel); margin-bottom: 14px; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
-    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(50px, 12vw, 112px); line-height: 1.02; color: var(--espresso); margin-bottom: 4px; }
-    .hero h1 .l { display: block; overflow: hidden; padding-bottom: .08em; }
-    .hero h1 .l span { display: inline-block; transform: translateY(105%); animation: rise 1s var(--ease) forwards; }
-    .hero h1 .l:nth-child(1) span { animation-delay: .3s; }
-    .hero h1 .l:nth-child(2) span { animation-delay: .45s; }
-    .hero h1 .l:nth-child(3) span { animation-delay: .6s; color: var(--cocoa); }
-    @keyframes rise { to { transform: translateY(0); } }
-    .hero .ornament { justify-content: flex-start; margin: 12px 0 18px; opacity: 0; animation: fadeUp .9s .85s var(--ease) forwards; }
+    .hero { position: relative; background: var(--linen); overflow-x: clip; }
+    .hero-grid { position: relative; display: block; min-height: 620px; }
+    .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; background: var(--khaki); }
+    .hero-visual img { position: absolute; top: -8%; left: 0; width: 100%; height: 116%; object-fit: cover; object-position: center 22%; filter: sepia(.28) saturate(.9); will-change: transform; }
+    .hero-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--camel); mix-blend-mode: soft-light; opacity: .45; }
+    .hero-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 88%, transparent) 42%, color-mix(in srgb, var(--linen) 40%, transparent) 72%, transparent 100%); }
+    .hero-text { position: relative; z-index: 3; margin: 0; padding: 90px 24px 56px; max-width: 640px; min-height: 620px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; background: none; }
+    .hero-kicker { font-size: clamp(16px, 2vw, 22px); font-weight: 800; letter-spacing: 8px; color: var(--camel); margin-bottom: 4px; text-transform: uppercase; opacity: 0; animation: fadeUp .9s .2s var(--ease) forwards; }
+    .hero h1 { font-family: var(--font-ar-serif); font-weight: 700; font-size: clamp(64px, 13vw, 130px); line-height: 1.02; padding-top: .16em; color: var(--espresso); margin-bottom: 4px; overflow: visible; }
+    .hero h1 .l { display: block; opacity: 0; transform: translateY(34px); animation: lineIn 1s var(--ease) forwards; }
+    .hero h1 .l:nth-child(1) { animation-delay: .3s; color: var(--espresso); }
+    .hero h1 .l:nth-child(2) { animation-delay: .5s; color: var(--cocoa); }
+    @keyframes lineIn { to { opacity: 1; transform: none; } }
+    .hero .ornament { justify-content: flex-start; margin: 14px 0 18px; opacity: 0; animation: fadeUp .9s .85s var(--ease) forwards; }
     .hero .ornament::after { display: none; }
-    .hero-sub { font-size: 17px; font-weight: 600; line-height: 1.8; color: var(--espresso); max-width: 380px; margin-bottom: 28px; opacity: 0; animation: fadeUp .9s 1s var(--ease) forwards; }
-    .hero .btn { opacity: 0; animation: fadeUp .9s 1.15s var(--ease) forwards; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 8px; opacity: 0; animation: fadeUp .9s 1.1s var(--ease) forwards; }
+    .hero-btns .btn { min-height: 54px; padding: 14px 28px; font-size: 14px; }
+    .hero-btns .btn-camel { background: transparent; border: 1.5px solid var(--cocoa); color: var(--cocoa); }
+    .hero-btns .btn-camel:hover { background: var(--cocoa); color: var(--linen); }
     .hero-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; width: 100%; max-width: 520px; opacity: 0; animation: fadeUp .9s 1.3s var(--ease) forwards; }
     .perk { text-align: center; padding: 6px 8px; }
     .perk + .perk { border-right: 1px solid var(--khaki); }
@@ -151,46 +155,82 @@
     .perk b { display: block; font-size: 12px; font-weight: 800; color: var(--espresso); }
     .perk small { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-    .hero-visual { position: relative; min-height: 460px; background: var(--khaki); }
-    .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-    .hero-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, color-mix(in srgb, var(--linen) 85%, transparent), transparent 35%); }
-
-    /* ---------- Palette strip ---------- */
-    .palette-strip { display: grid; grid-template-columns: repeat(5, 1fr); height: 10px; }
-    .palette-strip i:nth-child(1) { background: var(--linen); } .palette-strip i:nth-child(2) { background: var(--khaki); } .palette-strip i:nth-child(3) { background: var(--camel); } .palette-strip i:nth-child(4) { background: var(--cocoa); } .palette-strip i:nth-child(5) { background: var(--espresso); }
+    @media (min-width: 900px) {
+      .hero-grid { min-height: 720px; }
+      .hero-text { min-height: 720px; max-width: 720px; padding: 100px 40px 90px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
+      .hero-visual img { object-position: center 18%; }
+      .hero-visual::after { background: linear-gradient(270deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 86%, transparent) 34%, color-mix(in srgb, var(--linen) 38%, transparent) 62%, transparent 100%); }
+    }
 
     /* ---------- Sections ---------- */
     .section { padding: 72px 0; }
     .section-alt { background: var(--bg-alt); }
-    .section-top { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 40px; text-align: center; }
+    .section-top { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 32px; text-align: center; }
     @media (min-width: 768px) { .section-top { flex-direction: row; justify-content: space-between; text-align: right; } .section-top .section-head { text-align: right; margin: 0; } .section-top .section-sub { margin-right: 0; } }
     .section-top .section-head { margin-bottom: 0; }
+
+    /* ---------- Categories ---------- */
+    .categories { background: var(--bg-alt); padding: 80px 0 72px; position: relative; overflow: hidden; }
+    .arcade { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 24px 30px; margin: 0 -12px; scrollbar-width: none; }
+    .arcade::-webkit-scrollbar { display: none; }
+    .arch { position: relative; flex: 0 0 min(64vw, 250px); scroll-snap-align: center; display: block; aspect-ratio: 2/3.15; border-radius: var(--arch); cursor: pointer; }
+    .arch::after { content: ""; position: absolute; inset: -9px; border: 1.5px solid var(--camel); border-radius: var(--arch); opacity: .55; transition: inset .5s var(--ease), opacity .4s, border-color .4s; pointer-events: none; }
+    .arch:hover::after, .arch:focus-visible::after { inset: -14px; opacity: 1; border-color: var(--cocoa); }
+    .arch-img { position: absolute; inset: 0; border-radius: var(--arch); overflow: hidden; background: var(--cocoa); }
+    .arch-img img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(.85); transition: transform 1s var(--ease); }
+    .arch:hover .arch-img img { transform: scale(1.08); }
+    .arch-img::before { content: ""; position: absolute; inset: 0; background: var(--camel); mix-blend-mode: soft-light; opacity: .55; z-index: 1; }
+    .arch-img::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(0deg, var(--espresso) 4%, color-mix(in srgb, var(--espresso) 35%, transparent) 38%, transparent 62%); }
+    .arch-info { position: absolute; z-index: 3; inset: auto 0 0 0; padding: 0 12px 26px; text-align: center; color: var(--linen); }
+    .arch-fr { display: block; font-family: var(--font-serif); font-style: italic; font-size: 19px; color: var(--khaki); line-height: 1; margin-bottom: 4px; }
+    .arch-info h3 { font-family: var(--font-ar-serif); font-size: 30px; line-height: 1.2; font-weight: 700; }
+    .arch-count { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--espresso); background: var(--khaki); padding: 3px 14px; border-radius: 40px; transition: background .3s, color .3s; }
+    .arch:hover .arch-count { background: var(--linen); }
+    .arcade-hint { text-align: center; font-size: 14px; font-weight: 700; color: var(--cocoa); margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 18px; background: rgba(215,201,184,.35); border-radius: 40px; }
+    .arcade-hint i { color: var(--camel); font-size: 15px; animation: hintPulse 1.8s ease-in-out infinite; }
+    @keyframes hintPulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
+    .categories .wrap { text-align: center; }
+    .categories .section-title { display: none; }
+    .categories .kicker { font-family: var(--font-ar-serif); font-size: clamp(38px, 9vw, 72px); font-weight: 700; color: var(--espresso); letter-spacing: 0; margin-bottom: 10px; line-height: 1.15; padding-top: .12em; }
+    .categories .kicker::after { content: ""; display: block; width: 60px; height: 2px; background: var(--camel); margin: 14px auto 0; border-radius: 2px; }
+    .categories .section-sub { display: none; }
+
+    /* ---------- Filter chips ---------- */
+    .chips { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 18px; margin-bottom: 14px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    @media (min-width: 900px) { .chips { justify-content: center; } }
+    .chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; min-height: 44px; border-radius: 40px; border: 1.5px solid var(--khaki); font-size: 14px; font-weight: 700; color: var(--espresso); transition: all .3s var(--ease); }
+    .chip small { font-size: 11px; font-weight: 800; color: var(--camel); transition: color .3s; }
+    .chip:hover { border-color: var(--espresso); }
+    .chip.active { background: var(--espresso); border-color: var(--espresso); color: var(--linen); }
+    .chip.active small { color: var(--khaki); }
 
     /* ---------- Product cards ---------- */
     .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .sale-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 
     .card { background: var(--linen); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s; }
-    .section-alt .card { background: var(--linen); }
+    .card.is-hidden { display: none; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
     @media (hover: hover) { .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--camel); } }
-    .card-media { position: relative; aspect-ratio: 3/4; background: var(--khaki); overflow: hidden; cursor: pointer; margin: 8px 8px 0; border-radius: 10px; }
-    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .6s; opacity: 0; }
+    .card-media { position: relative; aspect-ratio: 1/1; background: var(--khaki); overflow: hidden; cursor: pointer; margin: 10px 10px 0; border-radius: 10px; border: 1px solid var(--line); }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .6s; opacity: 0; border-radius: 8px; }
     .card-media img.loaded { opacity: 1; }
-    @media (hover: hover) { .card:hover .card-media img { transform: scale(1.06); } }
+    @media (hover: hover) { .card:hover .card-media img { transform: scale(1.04); } }
     .heart { position: absolute; top: 10px; left: 10px; width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: color-mix(in srgb, var(--linen) 88%, transparent); color: var(--espresso); display: flex; align-items: center; justify-content: center; font-size: 15px; z-index: 2; transition: all .3s var(--ease); }
-    .heart:hover { background: var(--espresso); color: var(--linen); }
-    .heart.on { background: var(--espresso); color: var(--linen); }
+    .heart:hover, .heart.on { background: var(--espresso); color: var(--linen); }
     .heart.on i { font-weight: 900; }
-    .badge { position: absolute; top: 10px; right: 10px; background: var(--espresso); color: var(--linen); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 40px; z-index: 2; direction: ltr; }
+    .badge { position: absolute; bottom: 10px; right: 10px; background: var(--espresso); color: var(--linen); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 40px; z-index: 2; direction: ltr; }
+    .badge.new { background: var(--cocoa); direction: rtl; }
     .qv-hint { position: absolute; inset: auto 0 0 0; background: color-mix(in srgb, var(--espresso) 82%, transparent); color: var(--linen); text-align: center; padding: 12px; font-size: 12px; font-weight: 700; transform: translateY(100%); transition: transform .35s var(--ease); display: flex; justify-content: center; gap: 8px; align-items: center; }
     @media (hover: hover) { .card:hover .qv-hint { transform: translateY(0); } }
 
     .card-body { padding: 16px 14px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-    .card-name { font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--espresso); line-height: 1.4; }
-    .card-price { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--cocoa); direction: ltr; text-align: right; display: flex; gap: 10px; align-items: baseline; }
+    .card-cat { font-size: 12px; font-weight: 700; color: var(--camel); }
+    .card-name { font-size: 14px; font-weight: 700; color: var(--espresso); line-height: 1.4; }
+    .card-price { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--cocoa); direction: ltr; text-align: right; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
     .card-price .old { font-size: 14px; color: var(--camel); text-decoration: line-through; font-family: var(--font); }
 
-    /* الألوان كدوائر */
     .swatches { display: flex; gap: 9px; margin: 10px 0 6px; }
     .swatch { width: 18px; height: 18px; min-width: 18px; min-height: 18px; border-radius: 50%; background: var(--c); border: 1.5px solid color-mix(in srgb, var(--espresso) 22%, transparent); padding: 0; position: relative; transition: transform .25s var(--ease); }
     .swatch::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 1.5px solid transparent; transition: border-color .25s; }
@@ -200,31 +240,9 @@
     .card .btn:hover { background: var(--espresso); color: var(--linen); }
     .card-body .swatches + .btn { margin-top: 12px; }
 
-    /* ---------- Story banner ---------- */
-    .story { background: var(--espresso); color: var(--linen); overflow: hidden; }
-    .story-grid { display: grid; grid-template-columns: 1fr; max-width: 1400px; margin: 0 auto; }
-    .story-text { padding: 64px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-    .story h2 { font-family: var(--font-ar-serif); font-size: clamp(42px, 8vw, 84px); line-height: 1.08; font-weight: 700; }
-    .story h2 span { color: var(--camel); display: block; }
-    .story .ornament { justify-content: flex-start; }
-    .story .ornament::after { display: none; }
-    .story p { color: var(--khaki); max-width: 340px; margin-bottom: 26px; font-size: 16px; }
-    .story-visual { position: relative; min-height: 380px; background: var(--cocoa); }
-    .story-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; opacity: .92; }
-    .story-visual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, var(--espresso), transparent 40%); }
-
-    /* ---------- Trust bar ---------- */
-    .trust { background: var(--linen); border-top: 1px solid var(--line); padding: 28px 0; }
-    .trust-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 12px; }
-    .trust-item { display: flex; align-items: center; gap: 14px; }
-    .trust-item i { font-size: 26px; color: var(--cocoa); width: 34px; text-align: center; }
-    .trust-item b { display: block; font-size: 13px; font-weight: 800; color: var(--espresso); line-height: 1.3; }
-    .trust-item small { display: block; font-size: 12px; color: var(--muted); }
-
     /* ---------- Stats ---------- */
     .stats { background: var(--khaki); padding: 44px 0; }
     .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 12px; text-align: center; }
-    .stat-item + .stat-item { }
     .stat-num { font-family: var(--font-serif); font-size: clamp(38px, 7vw, 60px); font-weight: 600; color: var(--espresso); line-height: 1; direction: ltr; }
     .stat-label { font-size: 13px; font-weight: 700; color: var(--cocoa); margin-top: 8px; }
 
@@ -236,7 +254,7 @@
     .stars { color: var(--camel); font-size: 14px; letter-spacing: 5px; margin: 8px 0 16px; direction: ltr; display: flex; justify-content: center; }
     .testimonial-text { font-family: var(--font-ar-serif); font-size: 22px; line-height: 1.9; margin-bottom: 24px; color: var(--espresso); }
     .testimonial-person { display: flex; align-items: center; justify-content: center; gap: 14px; }
-    .testimonial-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--camel); }
+    .testimonial-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--camel); background: var(--khaki); }
     .testimonial-person div { text-align: right; }
     .testimonial-name { font-weight: 800; font-size: 15px; }
     .testimonial-role { font-size: 13px; color: var(--muted); }
@@ -244,23 +262,10 @@
     .carousel-dots button { width: 9px; height: 9px; min-width: 9px; min-height: 9px; border-radius: 50%; background: var(--khaki); padding: 0; transition: all .3s var(--ease); }
     .carousel-dots button.active { background: var(--espresso); transform: scale(1.4); }
 
-    /* ---------- Newsletter ---------- */
-    .newsletter { background: var(--cocoa); color: var(--linen); text-align: center; padding: 76px 0; }
-    .newsletter .section-title { color: var(--linen); }
-    .newsletter .section-sub { color: var(--khaki); }
-    .newsletter .kicker { color: var(--khaki); }
-    .newsletter-inner { max-width: 600px; margin: 0 auto; padding: 0 20px; }
-    .newsletter-form { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; background: var(--linen); padding: 8px; border-radius: 6px; }
-    @media (min-width: 500px) { .newsletter-form { flex-direction: row; } }
-    .newsletter-form input { flex: 1; border: none; padding: 14px 18px; background: transparent; min-height: 50px; width: 100%; }
-    .newsletter-form input:focus { outline: none; }
-    .newsletter-form .btn { min-height: 50px; }
-    .newsletter-note { margin-top: 14px; font-size: 14px; color: var(--khaki); }
-
     /* ---------- Footer ---------- */
     footer { background: var(--espresso); color: var(--khaki); padding: 56px 0 0; }
     .footer-grid { display: grid; grid-template-columns: 1fr; gap: 34px; padding-bottom: 40px; border-bottom: 1px solid color-mix(in srgb, var(--camel) 30%, transparent); text-align: center; }
-    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1.3fr; text-align: right; } }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1.5fr 1fr; text-align: right; } }
     .footer-logo { margin-bottom: 14px; display: flex; justify-content: center; align-items: center; gap: 12px; }
     @media (min-width: 640px) { .footer-logo { justify-content: flex-start; } }
     .footer-logo img { height: 64px; width: auto; }
@@ -272,18 +277,14 @@
     .social-row a { width: 42px; height: 42px; border: 1px solid var(--camel); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--linen); transition: all .3s var(--ease); }
     .social-row a:hover { background: var(--camel); color: var(--espresso); }
     .footer-title { font-family: var(--font-ar-serif); font-size: 20px; font-weight: 700; margin-bottom: 14px; color: var(--linen); }
-    .footer-links li { margin-bottom: 4px; }
-    .footer-links a { font-size: 14px; display: inline-block; padding: 6px 0; transition: color .25s; }
-    .footer-links a:hover { color: var(--linen); }
     .footer-contact li { display: flex; gap: 12px; margin-bottom: 12px; font-size: 14px; justify-content: center; }
     @media (min-width: 640px) { .footer-contact li { justify-content: flex-start; } }
     .footer-contact i { color: var(--camel); margin-top: 5px; flex-shrink: 0; }
     .footer-bottom { padding: 22px 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; text-align: center; align-items: center; color: var(--camel); }
     @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
-    .footer-bottom a:hover { color: var(--linen); }
 
     /* ---------- Modals ---------- */
-    .modal-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 72%, transparent); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); padding: 16px; }
+    .modal-overlay { position: fixed; inset: 0; background: color-mix(in srgb, var(--espresso) 72%, transparent); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); padding: 16px; }
     .modal-overlay.show { opacity: 1; pointer-events: auto; }
     .modal-box { background: var(--linen); width: min(420px, 94vw); padding: 34px 26px; text-align: center; border-radius: 18px; box-shadow: 0 32px 70px color-mix(in srgb, var(--espresso) 40%, transparent); transform: translateY(20px) scale(.96); transition: transform .5s var(--ease); position: relative; max-height: 92dvh; overflow-y: auto; }
     .modal-overlay.show .modal-box { transform: none; }
@@ -307,11 +308,11 @@
     .cart-total-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 4px 0; border-top: 1.5px solid var(--espresso); margin: 8px 0 20px; font-weight: 800; font-size: 17px; }
     .cart-total-row span:last-child { direction: ltr; font-family: var(--font-serif); font-size: 22px; }
 
-    .qv-modal-box { max-width: 600px; text-align: right; }
+    .qv-modal-box { max-width: 620px; text-align: right; }
     .qv-content { display: flex; gap: 22px; flex-direction: column; }
     @media (min-width: 520px) { .qv-content { flex-direction: row; } }
-    .qv-image { flex: 1 1 210px; border-radius: 10px; overflow: hidden; aspect-ratio: 3/4; background: var(--khaki); min-height: 220px; }
-    .qv-image img { width: 100%; height: 100%; object-fit: cover; }
+    .qv-image { flex: 1 1 210px; border-radius: 10px; overflow: hidden; aspect-ratio: 1/1; background: var(--khaki); min-height: 220px; border: 1px solid var(--line); }
+    .qv-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     .qv-info { flex: 1 1 230px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
     .qv-cat { font-size: 12px; font-weight: 700; color: var(--camel); }
     .qv-name { font-family: var(--font-ar-serif); font-size: 26px; font-weight: 700; line-height: 1.2; }
@@ -324,7 +325,6 @@
     .qv-size-btn.selected { border-color: var(--espresso); background: var(--espresso); color: var(--linen); }
     .qv-colors { display: flex; gap: 14px; }
     .qv-colors .swatch { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
-    .qv-age { font-size: 13px; color: var(--cocoa); display: flex; align-items: center; gap: 10px; background: color-mix(in srgb, var(--khaki) 40%, transparent); padding: 10px 14px; border-radius: 8px; }
     .qv-qty-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .qv-qty { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--khaki); border-radius: 4px; padding: 2px 4px; }
     .qv-qty-btn { width: 34px; height: 34px; min-width: 34px; min-height: 34px; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all .25s; border-radius: 3px; }
@@ -343,10 +343,6 @@
     .form-group select { background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237D5A44' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 14px center; background-size: 16px; padding-left: 40px; }
     .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cocoa); background-color: var(--linen); box-shadow: 0 0 0 4px color-mix(in srgb, var(--camel) 25%, transparent); }
     .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .check-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; font-size: 14px; font-weight: 600; cursor: pointer; }
-    .check-row input { width: 18px; height: 18px; accent-color: var(--cocoa); flex-shrink: 0; }
-    .ship-address-fields { display: none; margin-top: 4px; padding: 14px; background: color-mix(in srgb, var(--khaki) 30%, transparent); border-radius: 8px; }
-    .ship-address-fields.open { display: block; }
 
     .order-summary-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .order-summary-table th { text-align: right; font-size: 13px; color: var(--muted); padding-bottom: 8px; border-bottom: 1.5px solid var(--khaki); font-weight: 700; }
@@ -356,16 +352,18 @@
     .order-summary-table .os-price { text-align: left; white-space: nowrap; font-weight: 700; direction: ltr; }
     .order-summary-table tfoot td { font-weight: 800; padding-top: 12px; }
     .order-summary-table tfoot .os-total-row td { font-size: 16px; font-weight: 800; border-bottom: none; padding-top: 14px; }
+    .order-summary-table tfoot .os-ship-row td { font-size: 14px; font-weight: 700; color: var(--cocoa); }
 
     .ship-options { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
     .ship-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 8px; border: 1.5px solid var(--khaki); cursor: pointer; transition: all .3s; font-size: 14px; font-weight: 600; min-height: 50px; }
     .ship-option input { accent-color: var(--cocoa); flex-shrink: 0; }
     .ship-option.selected { border-color: var(--espresso); background: color-mix(in srgb, var(--khaki) 35%, transparent); }
     .ship-option .ship-price { margin-right: auto; font-weight: 800; color: var(--cocoa); direction: ltr; }
-    .cod-box { background: color-mix(in srgb, var(--khaki) 35%, transparent); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; }
-    .cod-box i { color: var(--cocoa); font-size: 18px; margin-top: 2px; }
-    .cod-box p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--cocoa); }
-    .cod-box strong { color: var(--espresso); }
+
+    .cod-simple { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 22px 20px; background: var(--khaki); border-radius: 10px; text-align: center; margin-top: 14px; }
+    .cod-simple i { font-size: 28px; color: var(--cocoa); }
+    .cod-simple p { margin: 0; }
+    .cod-simple strong { font-family: var(--font-ar-serif); font-size: clamp(20px, 5vw, 26px); font-weight: 700; color: var(--espresso); letter-spacing: .5px; line-height: 1.2; display: inline-block; }
 
     .to-top { position: fixed; left: 16px; bottom: 16px; width: 46px; height: 46px; border-radius: 50%; background: var(--espresso); color: var(--linen); box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; z-index: 900; opacity: 0; pointer-events: none; transform: translateY(16px); transition: all .4s var(--ease); }
     .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
@@ -375,21 +373,17 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
     .reveal.in { opacity: 1; transform: none; }
 
-    /* ---------- Responsive ---------- */
+    /* ---------- Responsive general ---------- */
     @media (min-width: 640px) {
       .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
     @media (min-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr 1.15fr; min-height: 700px; }
-      .hero-text { padding: 80px 40px 60px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); justify-content: center; }
-      .hero-visual { min-height: 100%; }
-      .hero-visual::after { background: linear-gradient(270deg, var(--linen), transparent 32%); }
-      .story-grid { grid-template-columns: 1fr 1fr; min-height: 520px; }
-      .story-text { padding: 70px 40px 70px 20px; padding-right: max(24px, calc((100vw - 1240px) / 2 + 20px)); }
-      .story-visual::before { background: linear-gradient(270deg, var(--espresso), transparent 45%); }
-      .trust-grid { grid-template-columns: repeat(4, 1fr); }
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .stat-item + .stat-item { border-right: 1px solid color-mix(in srgb, var(--cocoa) 35%, transparent); }
+      .arcade { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; overflow: visible; padding: 26px 10px 60px; margin: 0; }
+      .arch { flex: none; }
+      .arch:nth-child(even) { margin-top: 54px; }
+      .arcade-hint { display: none; }
     }
     @media (min-width: 1024px) {
       .nav-links { position: static; transform: none; width: auto; max-width: none; padding: 0; background: transparent; box-shadow: none; flex-direction: row; align-items: center; gap: 2px; grid-column: 1; justify-self: start; overflow: visible; }
@@ -402,27 +396,260 @@
       .section { padding: 96px 0; }
       .card-body { padding: 18px 16px; }
     }
-    @media (max-width: 450px) {
-      .wrap { padding: 0 12px; }
-      .card-body { padding: 14px 10px 14px; }
-      .card-name { font-size: 13px; }
-      .card .btn { padding: 11px 10px; font-size: 12px; }
-      .logo img { height: 42px; }
-      .logo-text { font-size: 20px; }
-      .logo-text small { letter-spacing: 4px; font-size: 8px; }
-      .nav-inner { height: 68px; }
-      .preloader-text { font-size: 32px; }
-      .preloader img { width: 90px; }
-      .testimonial-text { font-size: 19px; }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } }
+
+    /* ============================================================
+       قسم التخفيضات — النصوص المخصّصة
+       ============================================================ */
+    #sale .kicker { display: none !important; }
+    #sale .section-sub { font-size: 0 !important; margin-top: 12px !important; max-width: 100% !important; }
+    #sale .section-sub::before {
+      content: "قطع استثنائية بأسعار منخفضة";
+      display: block;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      color: var(--cocoa) !important;
+      font-family: var(--font) !important;
+      margin-bottom: 6px;
     }
-    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+    #sale .section-sub::after {
+      content: "الكميات محدودة";
+      display: block;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: var(--muted) !important;
+      font-family: var(--font) !important;
+      letter-spacing: .5px;
+    }
+
+    /* ============================================================
+       الجوال — إصلاح نهائي شامل
+       ============================================================ */
+    @media (max-width: 899px) {
+
+      /* الهيرو — مرئي بالكامل */
+      .hero, .hero-grid, .hero-text { min-height: 82vh !important; }
+
+      .hero-text {
+        padding: 60px 22px 100px !important;
+        justify-content: flex-end !important;
+        position: relative !important;
+        z-index: 3 !important;
+      }
+
+      /* تدرّج أبيض متدرّج تحت النص — بدون blur ولا mask */
+      .hero-visual img {
+        object-position: center 28% !important;
+        filter: none !important;
+        transform: none !important;
+      }
+      .hero-visual::before { display: none !important; }
+      .hero-visual::after {
+        background: linear-gradient(
+          0deg,
+          rgba(245,241,234,1)    0%,
+          rgba(245,241,234,0.98) 18%,
+          rgba(245,241,234,0.90) 38%,
+          rgba(245,241,234,0.65) 58%,
+          rgba(245,241,234,0.30) 78%,
+          rgba(245,241,234,0)    100%
+        ) !important;
+      }
+
+      /* إظهار كل عناصر الهيرو */
+      .hero h1 .l,
+      .hero-kicker,
+      .hero-btns,
+      .hero-perks,
+      .hero .ornament {
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+      }
+
+      /* ظل خفيف على النص */
+      .hero h1 .l,
+      .hero-kicker {
+        text-shadow: 0 1px 8px rgba(255,255,255,0.95),
+                     0 2px 18px rgba(255,255,255,0.75);
+      }
+
+      /* أحجام الهيرو على الجوال */
+      .hero-kicker { font-size: 14px !important; letter-spacing: 5px; color: var(--cocoa) !important; margin-bottom: 2px !important; }
+      .hero h1 { font-size: clamp(48px, 15vw, 84px) !important; line-height: 1.0 !important; color: var(--espresso) !important; }
+      .hero h1 .l:nth-child(2) { color: var(--cocoa) !important; }
+
+      .hero-btns {
+        flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%;
+        margin-top: 6px !important; margin-bottom: 4px !important;
+      }
+      .hero-btns .btn { flex: 1 1 auto; min-height: 46px; padding: 11px 18px; font-size: 13px; justify-content: center; }
+      .hero-btns .btn-camel { background: rgba(245,241,234,.85); border-color: var(--cocoa); color: var(--cocoa); }
+
+      .hero-perks {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0 !important;
+        margin-top: 20px !important;
+        max-width: 100% !important;
+        background: rgba(245,241,234,.65) !important;
+        border-radius: 10px !important;
+        padding: 10px 4px !important;
+      }
+      .perk { padding: 4px 5px !important; }
+      .perk + .perk { border-right: 1px solid rgba(74,52,42,.18) !important; }
+      .perk i { font-size: 17px !important; margin-bottom: 5px !important; }
+      .perk b { font-size: 11px !important; }
+      .perk small { font-size: 10px !important; line-height: 1.35 !important; }
+
+      /* ضمان ظهور كل الأقسام حتى لو فشل IntersectionObserver */
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+      /* توحيد الخلفية */
+      body, main,
+      .section, .section-alt, .categories, .stats,
+      #collection, #sale, #reviews {
+        background: var(--bg) !important;
+        background-image: none !important;
+      }
+
+      /* تقليل الفراغات */
+      .section        { padding: 40px 0 !important; }
+      .categories     { padding: 44px 0 16px !important; }
+      #collection     { padding-top: 10px !important; }
+      #sale           { padding-top: 28px !important; }
+      .section-head   { margin-bottom: 20px !important; }
+      .arcade         { gap: 14px; padding: 20px 16px 14px; }
+      .arch           { flex: 0 0 min(70vw, 240px); aspect-ratio: 2/3 !important; }
+      .arch-info h3   { font-size: 24px; }
+      .arch-fr        { font-size: 16px; }
+      .arcade-hint    { font-size: 13px; padding: 7px 16px; margin-top: 8px; margin-bottom: 0; }
+      .chips          { padding: 4px 0 14px; gap: 8px; margin-top: 0; }
+      .chip           { padding: 7px 16px; font-size: 13px; min-height: 40px; }
+      .chip small     { font-size: 10px; }
+
+      .products-grid, .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .card-media     { margin: 8px 8px 0 !important; border-radius: 8px !important; }
+      .card-media img { border-radius: 6px !important; }
+      .heart          { top: 8px !important; left: 8px !important; }
+      .badge          { bottom: 8px !important; right: 8px !important; font-size: 10px; padding: 3px 9px; }
+      .card-body      { padding: 12px 10px 14px; gap: 3px; }
+      .card-name      { font-size: 13px; line-height: 1.35; }
+      .card-price     { font-size: 17px; }
+      .card-price .old { font-size: 12px; }
+      .card .btn      { padding: 10px 10px; font-size: 12px; min-height: 42px; }
+      .card .btn i    { display: none; }
+      .swatches       { gap: 7px; margin: 8px 0 4px; }
+      .swatch         { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
+      .qv-hint        { display: none; }
+
+      .stats          { padding: 34px 0; }
+      .stats-grid     { gap: 20px 10px; }
+      .stat-num       { font-size: clamp(30px, 9vw, 44px); }
+      .stat-label     { font-size: 12px; }
+
+      .testimonial-slide { padding: 28px 18px; }
+      .testimonial-text  { font-size: 17px; line-height: 1.8; }
+      .quote-mark        { font-size: 56px; height: 22px; }
+      .testimonial-person img { width: 44px; height: 44px; }
+      .testimonial-name  { font-size: 14px; }
+      .testimonial-role  { font-size: 12px; }
+
+      footer          { padding: 44px 0 0; }
+      .footer-grid    { gap: 26px; padding-bottom: 28px; }
+      .footer-logo    { flex-direction: column; gap: 6px; }
+      .footer-logo img { height: 54px; }
+      .footer-logo span { font-size: 22px; }
+      .footer-about   { font-size: 13px; }
+      .footer-title   { font-size: 17px; margin-bottom: 8px; }
+      .footer-contact li { font-size: 13px; }
+
+      .modal-box      { padding: 28px 18px; width: min(440px, 96vw); border-radius: 14px; }
+      .modal-box h3   { font-size: 22px; }
+      .modal-close    { top: 8px; left: 8px; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
+      .qv-content     { flex-direction: column; gap: 16px; }
+      .qv-image       { aspect-ratio: 1/1; min-height: 0; flex: none; }
+      .qv-name        { font-size: 22px; }
+      .qv-price       { font-size: 20px; }
+      .qv-size-btn    { width: 42px; height: 38px; }
+      .qv-qty-row     { flex-direction: column; align-items: stretch; gap: 10px; }
+      .qv-total       { text-align: center; }
+      .cart-items-list { max-height: 240px; }
+      .cart-item-name { font-size: 13px; }
+      .cart-item-price { font-size: 13px; }
+      .checkout-modal-box { padding: 24px 16px; }
+      .form-row-2     { grid-template-columns: 1fr; gap: 0; }
+      .order-summary-table { font-size: 13px; }
+      .order-summary-table th { font-size: 12px; }
+      .order-summary-table td { padding: 8px 0; }
+      .ship-option    { padding: 11px 12px; font-size: 13px; min-height: 46px; }
+      .cod-simple     { padding: 18px 16px !important; gap: 12px !important; }
+      .cod-simple i   { font-size: 24px !important; }
+      .cod-simple strong { font-size: clamp(18px, 5.5vw, 24px) !important; }
+
+      .nav-inner      { height: 64px; padding: 0 12px; }
+      .navbar.scrolled .nav-inner { height: 58px; }
+      .logo img       { height: 40px; }
+      .logo-text      { font-size: 18px; letter-spacing: 1px; }
+      .cart-btn       { font-size: 19px; }
+      .cart-count     { font-size: 10px; width: 17px; height: 17px; }
+      .nav-links      { width: 82vw; max-width: 320px; padding: 80px 0 20px; }
+      .nav-links a    { padding: 15px 22px; font-size: 15px; }
+      .to-top         { width: 42px; height: 42px; left: 12px; bottom: 12px; font-size: 14px; }
+      .wrap           { padding: 0 16px; }
+
+      /* نص التخفيضات على الجوال */
+      #sale .section-sub::before { font-size: 13px !important; margin-bottom: 4px; }
+      #sale .section-sub::after  { font-size: 12px !important; }
+      #sale .section-sub         { margin-top: 8px !important; }
+    }
+
+    @media (max-width: 380px) {
+      .hero h1        { font-size: clamp(42px, 14vw, 62px) !important; }
+      .hero-kicker    { font-size: 13px !important; letter-spacing: 4px; }
+      .hero-btns .btn { padding: 10px 14px; font-size: 12px; min-height: 44px; }
+      .wrap           { padding: 0 12px; }
+      .products-grid, .sale-grid { gap: 8px; }
+      .card-body      { padding: 10px 8px 12px; }
+      .card-name      { font-size: 12px; }
+      .card-price     { font-size: 15px; }
+      .card .btn      { font-size: 11px; padding: 9px 8px; min-height: 38px; }
+      .chip           { padding: 6px 13px; font-size: 12px; }
+      .section-title  { font-size: clamp(24px, 7vw, 32px); }
+      .testimonial-text { font-size: 15px; }
+      .stat-num       { font-size: 28px; }
+      .modal-box      { padding: 22px 14px; }
+      .categories .kicker { font-size: clamp(30px, 9.5vw, 42px) !important; }
+    }
+
+    @media (min-width: 900px) and (max-width: 1023px) {
+      .products-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .arcade { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    }
+    /* ============================================================
+   توحيد الخلفية — لون واحد في كل الصفحة
+   ============================================================ */
+
+html, body,
+main,
+.section,
+.section-alt,
+.categories,
+.stats,
+#collection,
+#sale,
+#reviews,
+#categories {
+  background: var(--bg) !important;
+  background-image: none !important;
+}
   </style>
 </head>
 <body>
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="preloader-content">
-      <img src="logoo.png" alt="Haute et jolie">
+      <div class="preloader-arch"><img src="logoo.png" alt="Haute et jolie"></div>
       <div class="preloader-text">Haute et Jolie</div>
       <div class="preloader-line"></div>
     </div>
@@ -436,9 +663,10 @@
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
-        <li><a href="#men"><i class="fa-solid fa-shirt"></i> ملابس</a></li>
+        <li><a href="#categories"><i class="fa-solid fa-layer-group"></i> الفئات</a></li>
+        <li><a href="#collection"><i class="fa-solid fa-shirt"></i> منتجاتنا</a></li>
         <li><a href="#sale"><i class="fa-solid fa-tag"></i> تخفيضات</a></li>
-        <li><a href="#women"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
+        <li><a href="#reviews"><i class="fa-solid fa-star"></i> آراء العملاء</a></li>
         <li class="nav-footer">
           <i class="fa-solid fa-crown"></i> Haute et Jolie<br>
           <span style="font-size:11px;opacity:.7">© 2024 جميع الحقوق محفوظة</span>
@@ -448,7 +676,7 @@
       <button class="hamburger" id="hamburger" aria-label="القائمة"><span></span><span></span><span></span></button>
 
       <a href="#hero" class="logo">
-        <span class="logo-text">Haute et Jolie<small>BOUTIQUE</small></span>
+        <span class="logo-text">Haute et Jolie</span>
         <img src="logoo.png" alt="Haute et jolie">
       </a>
 
@@ -469,55 +697,47 @@
     <section class="hero" id="hero">
       <div class="hero-grid">
         <div class="hero-text">
-          <span class="hero-kicker">تشكيلة الخريف / الشتاء</span>
+          <span class="hero-kicker">تشكيلة</span>
           <h1>
-            <span class="l"><span>أناقتك</span></span>
-            <span class="l"><span>تصنع</span></span>
-            <span class="l"><span>لحظتك.</span></span>
+            <span class="l">الخريف</span>
+            <span class="l">و الشتاء</span>
           </h1>
           <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
-          <p class="hero-sub">قطع خالدة،<br>مصنوعة لأجلك.</p>
-          <a href="#men" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
+          <div class="hero-btns">
+            <a href="#collection" class="btn btn-dark">تسوق الآن <i class="fa-solid fa-arrow-left"></i></a>
+            <a href="#sale" class="btn btn-camel">اكتشف التخفيضات <i class="fa-solid fa-tag"></i></a>
+          </div>
 
           <div class="hero-perks">
-            <div class="perk"><i class="fa-solid fa-shirt"></i><b>تصاميم مختارة</b><small>اختيار يدوي</small></div>
+            <div class="perk"><i class="fa-solid fa-shirt"></i><b>قطع مختارة</b><small>انيقة وراقية</small></div>
             <div class="perk"><i class="fa-solid fa-feather-pointed"></i><b>جودة عالية</b><small>أقمشة تدوم</small></div>
             <div class="perk"><i class="fa-solid fa-truck-fast"></i><b>توصيل لـ 58 ولاية</b><small>سريع وآمن</small></div>
           </div>
         </div>
         <div class="hero-visual">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=80&auto=format&fit=crop" alt="تشكيلة Haute et Jolie">
+          <img id="heroImg" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80&auto=format&fit=crop" alt="تشكيلة Haute et Jolie">
         </div>
       </div>
     </section>
-    <div class="palette-strip"><i></i><i></i><i></i><i></i><i></i></div>
 
-    <!-- PRODUCTS -->
-    <section class="section" id="men">
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories">
       <div class="wrap">
-        <div class="section-top reveal">
-          <div class="section-head">
-            <span class="kicker">وصل حديثاً</span>
-            <h2 class="section-title">مختارة. أنيقة. لك.</h2>
-          </div>
-          <a href="#sale" class="btn btn-outline">عرض التخفيضات <i class="fa-solid fa-arrow-left"></i></a>
+        <div class="section-head reveal">
+          <span class="kicker">تسوق حسب الفئة</span>
+          <h2 class="section-title">خمس فئات. أسلوب واحد.</h2>
+          <p class="section-sub">اختر الباب الذي يناسب إطلالتك اليوم.</p>
         </div>
-        <div class="products-grid" id="productsGrid"></div>
+        <div class="arcade" id="arcade"></div>
+        <p class="arcade-hint"><i class="fa-solid fa-hand-pointer"></i> اسحب لاستعراض كل الفئات</p>
       </div>
     </section>
 
-    <!-- STORY -->
-    <section class="story">
-      <div class="story-grid">
-        <div class="story-text reveal">
-          <h2>أسلوبك.<span>قصتك.</span></h2>
-          <div class="ornament"><i class="fa-solid fa-diamond"></i></div>
-          <p>ملابس تتحرك معك،<br>وثقة تبقى معك.</p>
-          <a href="#sale" class="btn btn-camel">اكتشف المجموعة <i class="fa-solid fa-arrow-left"></i></a>
-        </div>
-        <div class="story-visual">
-          <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80&auto=format&fit=crop" alt="أسلوبك قصتك">
-        </div>
+    <!-- COLLECTION -->
+    <section class="section" id="collection">
+      <div class="wrap">
+        <div class="chips" id="chips" role="tablist" aria-label="تصفية حسب الفئة"></div>
+        <div class="products-grid" id="productsGrid"></div>
       </div>
     </section>
 
@@ -544,7 +764,7 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="section" id="women">
+    <section class="section" id="reviews">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="kicker">آراء العملاء</span>
@@ -555,27 +775,6 @@
         <div class="carousel-dots" id="carouselDots"></div>
       </div>
     </section>
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-      <div class="wrap newsletter-inner reveal">
-        <span class="kicker">ابق على اطلاع</span>
-        <h2 class="section-title">احصل على خصم 10%</h2>
-        <p class="section-sub">اشترك لتصلك أحدث المنتجات والعروض الحصرية أولاً بأول.</p>
-        <form class="newsletter-form" id="newsletterForm"><input type="email" required placeholder="أدخل بريدك الإلكتروني" aria-label="البريد الإلكتروني"><button type="submit" class="btn btn-dark">اشترك</button></form>
-        <p class="newsletter-note" id="newsletterNote">انضم إلى أكثر من 10,000 مشترك.</p>
-      </div>
-    </section>
-
-    <!-- TRUST BAR -->
-    <section class="trust">
-      <div class="wrap trust-grid">
-        <div class="trust-item"><i class="fa-solid fa-lock"></i><div><b>دفع آمن</b><small>عند الاستلام</small></div></div>
-        <div class="trust-item"><i class="fa-solid fa-box-open"></i><div><b>إرجاع سهل</b><small>سياسة إرجاع واضحة</small></div></div>
-        <div class="trust-item"><i class="fa-solid fa-truck"></i><div><b>توصيل سريع</b><small>عبر World Express</small></div></div>
-        <div class="trust-item"><i class="fa-solid fa-headset"></i><div><b>دعم متواصل</b><small>نحن هنا لمساعدتك</small></div></div>
-      </div>
-    </section>
   </main>
 
   <footer id="footer">
@@ -583,34 +782,22 @@
       <div class="footer-grid">
         <div>
           <div class="footer-logo"><img src="logoo.png" alt="Haute et jolie"><span>Haute et Jolie</span></div>
-          <p class="footer-about">متجر Haute et Jolie، وجهتك للملابس الفاخرة التي تجمع بين الأناقة والجودة والثقة منذ 2024.</p>
+          <p class="footer-about">وجهتك للملابس التي تجمع بين الأناقة والجودة والثقة منذ 2024.</p>
           <div class="social-row">
-            <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/haute_et_jolie" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/1Ha1HBki9D/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@haute_et_jolie" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
           </div>
-        </div>
-        <div>
-          <div class="footer-title">روابط سريعة</div>
-          <ul class="footer-links">
-            <li><a href="#hero">الرئيسية</a></li>
-            <li><a href="#men">ملابس</a></li>
-            <li><a href="#sale">تخفيضات</a></li>
-            <li><a href="#women">آراء العملاء</a></li>
-          </ul>
         </div>
         <div>
           <div class="footer-title">اتصل بنا</div>
           <ul class="footer-contact">
-            <li><i class="fa-solid fa-location-dot"></i> العنوان: قريباً</li>
-            <li><i class="fa-solid fa-phone"></i> الهاتف: قريباً</li>
-            <li><i class="fa-solid fa-envelope"></i> hauteetjolie@gmail.com</li>
+            <li><i class="fa-solid fa-phone"></i> الهاتف: 05 60748560</li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <span>© 2024 Haute et Jolie. جميع الحقوق محفوظة.</span>
-        <span><a href="#">سياسة الخصوصية</a> · <a href="#">شروط الاستخدام</a></span>
       </div>
     </div>
   </footer>
@@ -635,7 +822,6 @@
             <div class="qv-label">المقاس</div>
             <div class="qv-sizes" id="qvSizes"></div>
           </div>
-          <div class="qv-age"><i class="fa-solid fa-user"></i><span id="qvAge"></span></div>
           <div class="qv-qty-row">
             <div>
               <div class="qv-label">الكمية</div>
@@ -695,11 +881,11 @@
           <label for="wilaya">الولاية *</label>
           <select id="wilaya" required><option value="" selected disabled>اختر الولاية…</option></select>
         </div>
-        <div class="form-group"><label for="commune">البلدية *</label><input type="text" id="commune" required placeholder="أدخل البلدية"></div>
-
-        <label class="check-row"><input type="checkbox" id="shipDifferent"> التوصيل إلى عنوان مختلف؟</label>
-        <div class="ship-address-fields" id="shipAddressFields">
-          <div class="form-group" style="margin-bottom:0"><label for="shipAddress">عنوان التوصيل</label><input type="text" id="shipAddress" placeholder="الحي، الشارع، رقم المنزل…"></div>
+        <div class="form-group">
+          <label for="commune">البلدية *</label>
+          <select id="commune" required disabled>
+            <option value="" selected disabled>اختر الولاية أولاً…</option>
+          </select>
         </div>
 
         <h4>طلبك</h4>
@@ -707,7 +893,7 @@
           <thead><tr><th>المنتج</th><th class="os-price">المجموع الفرعي</th></tr></thead>
           <tbody id="orderSummaryBody"></tbody>
           <tfoot>
-            <tr><td>المجموع الفرعي</td><td class="os-price" id="osSubtotal">0 د.ج</td></tr>
+            <tr class="os-ship-row"><td>التوصيل</td><td class="os-price" id="osShipping">0 د.ج</td></tr>
             <tr class="os-total-row"><td>المجموع الكلي</td><td class="os-price" id="osTotal">0 د.ج</td></tr>
           </tfoot>
         </table>
@@ -717,10 +903,9 @@
           <label class="ship-option"><input type="radio" name="shipping" value="800"> التوصيل إلى المنزل <span class="ship-price">800 د.ج</span></label>
         </div>
 
-        <h4>طريقة الدفع</h4>
-        <div class="cod-box">
+        <div class="cod-box cod-simple">
           <i class="fa-solid fa-money-bill-wave"></i>
-          <p><strong>الدفع عند الاستلام</strong><br>عزيزي العميل، سنتصل بك هاتفياً لتأكيد طلبك. يتم التوصيل عبر <strong>World Express</strong>.</p>
+          <p><strong>الدفع عند الاستلام</strong></p>
         </div>
 
         <button type="submit" class="btn btn-dark" style="width:100%;margin-top:18px">تأكيد الطلب</button>
@@ -733,8 +918,8 @@
     <div class="modal-box">
       <button class="modal-close" id="orderSuccessClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
       <div class="modal-icon"><i class="fa-solid fa-check"></i></div>
-      <h3>تم تأكيد الطلب!</h3>
-      <p>شكراً لطلبك. سيتصل بك فريقنا قريباً لتأكيد تفاصيل التوصيل.</p>
+      <h3>تم تسجيل الطلب</h3>
+      <p>سيتم الاتصال بك لتأكيده، بعدها يتم التوصيل مع شركة <strong>World Express</strong></p>
       <div class="modal-actions"><button class="btn btn-dark" id="orderSuccessDone" style="flex:1">تم</button></div>
     </div>
   </div>
@@ -742,19 +927,33 @@
   <button class="to-top" id="toTop" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script>
-    /* الألوان الخمسة فقط */
     const PAL = { linen:"#F5F1EA", khaki:"#D7C9B8", camel:"#B2967D", cocoa:"#7D5A44", espresso:"#4A342A" };
+    const U = id => `https://images.unsplash.com/photo-${id}?w=700&q=80&auto=format&fit=crop`;
+
+    const CATS = {
+      dress:  { ar:"فساتين",        fr:"Robes",     img:U("1496747611176-843222e1e57c") },
+      top:    { ar:"القطع العلوية", fr:"Hauts",     img:U("1445205170230-053b83016050") },
+      jacket: { ar:"جاكيتات",       fr:"Vestes",    img:U("1591047139829-d91aecb6caea") },
+      set:    { ar:"أطقم",          fr:"Ensembles", img:U("1539109136881-3be0616acf4b") },
+      skirt:  { ar:"تنانير",        fr:"Jupes",     img:U("1594633312681-425c7b97ccd1") },
+    };
 
     const products = [
-      { name:"بدلة صوفية بقصة كلاسيكية", cat:"رجالي", price:189, img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80&auto=format&fit=crop", sizes:["S","M","L","XL","XXL"], age:"بالغين (+20 سنة)", colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
-      { name:"بلوزة مزيج الحرير", cat:"نسائي", price:79, img:"https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80&auto=format&fit=crop", sizes:["XS","S","M","L"], age:"بالغين (+18 سنة)", colors:[PAL.linen, PAL.camel, PAL.cocoa] },
-      { name:"معطف ترنش كلاسيكي", cat:"نسائي", price:210, img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"بالغين (+18 سنة)", colors:[PAL.khaki, PAL.camel, PAL.espresso] },
-      { name:"قميص قطني بقصة عصرية", cat:"رجالي", price:69, img:"https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.linen, PAL.khaki, PAL.espresso] },
+      { cat:"dress",  name:"فستان ساتان انسيابي",       price:6900,  isNew:true,  img:U("1496747611176-843222e1e57c"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
+      { cat:"dress",  name:"فستان ميدي بأكمام واسعة",   price:5400,  img:U("1509631179647-0177331693ae"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.cocoa] },
+      { cat:"top",    name:"بلوزة مزيج الحرير",          price:2900,  isNew:true,  img:U("1445205170230-053b83016050"), sizes:["XS","S","M","L"],       age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.camel, PAL.cocoa] },
+      { cat:"top",    name:"قميص قطني بقصة عصرية",       price:3400,  img:U("1489987707025-afc232f7ea0f"), sizes:["S","M","L","XL"],       age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.linen, PAL.khaki, PAL.espresso] },
+      { cat:"jacket", name:"جاكيت بليزر بقصة مستقيمة",   price:8900,  isNew:true,  img:U("1521572163474-6864f9cf17ab"), sizes:["S","M","L","XL","XXL"], age:"بالغين (+20 سنة)",          colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
+      { cat:"jacket", name:"معطف ترنش كلاسيكي",          price:9500,  img:U("1483985988355-763728e1935b"), sizes:["S","M","L","XL"],       age:"بالغين (+18 سنة)",          colors:[PAL.khaki, PAL.camel, PAL.espresso] },
+      { cat:"set",    name:"طقم بنطلون وبليزر",          price:11900, isNew:true,  img:U("1539109136881-3be0616acf4b"), sizes:["S","M","L","XL"],       age:"بالغات (+18 سنة)",          colors:[PAL.khaki, PAL.cocoa, PAL.espresso] },
+      { cat:"set",    name:"طقم صوف بقطعتين",            price:8800,  img:U("1515886657613-9f3515b0c78f"), sizes:["S","M","L"],            age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.camel, PAL.cocoa] },
+      { cat:"skirt",  name:"تنورة بليسيه ميدي",          price:3900,  img:U("1594633312681-425c7b97ccd1"), sizes:["XS","S","M","L"],       age:"بالغات (+16 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
+      { cat:"skirt",  name:"تنورة بقصة قلم",             price:4500,  isNew:true,  img:U("1572804013309-59a88b7e92f1"), sizes:["XS","S","M","L","XL"],  age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.espresso] },
     ];
     const saleItems = [
-      { name:"جاكيت جينز عصري", newPrice:59, oldPrice:99, discount:"40%", img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=700&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.cocoa, PAL.espresso, PAL.camel] },
-      { name:"معطف صوف أنيق", newPrice:149, oldPrice:249, discount:"30%", img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80&auto=format&fit=crop", sizes:["S","M","L","XL"], age:"بالغين (+18 سنة)", colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
-      { name:"فستان كتان صيفي", newPrice:45, oldPrice:75, discount:"25%", img:"https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=700&q=80&auto=format&fit=crop", sizes:["XS","S","M","L"], age:"بالغين (+18 سنة)", colors:[PAL.linen, PAL.khaki, PAL.camel] },
+      { cat:"jacket", name:"جاكيت جينز عصري",   newPrice:5900,  oldPrice:9800,  img:U("1551028719-00167b16eac5"), sizes:["S","M","L","XL"],  age:"مراهقين وبالغين (+16 سنة)", colors:[PAL.cocoa, PAL.espresso, PAL.camel] },
+      { cat:"jacket", name:"معطف صوف أنيق",     newPrice:14900, oldPrice:21300, img:U("1591047139829-d91aecb6caea"), sizes:["S","M","L","XL"],  age:"بالغين (+18 سنة)",          colors:[PAL.camel, PAL.cocoa, PAL.espresso] },
+      { cat:"dress",  name:"فستان كتان صيفي",   newPrice:4500,  oldPrice:6000,  img:U("1487222477894-8943e31ef7b2"), sizes:["XS","S","M","L"],  age:"بالغات (+18 سنة)",          colors:[PAL.linen, PAL.khaki, PAL.camel] },
     ];
     const testimonials = [
       { text:"القصة ممتازة جداً — طلبت بدلة وكانت مثالية. حتى التغليف كان تجربة فاخرة.", name:"سارة الدانا", role:"عميلة وفية", img:"https://i.pravatar.cc/150?img=32" },
@@ -764,18 +963,47 @@
 
     function formatDA(n){ return Math.round(n).toLocaleString('en-US') + ' د.ج'; }
     function swatchesHTML(colors){ return colors.map((c,i)=>`<button type="button" class="swatch${i===0?' selected':''}" style="--c:${c}" data-color="${c}" aria-label="لون ${i+1}"></button>`).join(''); }
+    function guardImg(img){ img.addEventListener('load', () => img.classList.add('loaded'), { once:true }); if(img.complete && img.naturalWidth) img.classList.add('loaded'); img.addEventListener('error', () => { img.classList.add('loaded'); img.style.visibility = 'hidden'; }); }
 
-    window.addEventListener('load', () => { setTimeout(() => document.getElementById('preloader').classList.add('hide'), 800); });
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('preloader').classList.add('hide'), isMobile ? 300 : 900);
+    });
 
     /* Marquee */
     const marqueeTrack = document.getElementById('marqueeTrack');
     const tickerItems = ["تشكيلة جديدة", "توصيل لـ 58 ولاية", "قصات دقيقة", "أقمشة فاخرة", "أناقة عصرية"];
     for(let r=0; r<2; r++){ tickerItems.forEach(t => { const s = document.createElement('span'); s.innerHTML = `${t} <i class="fa-solid fa-circle"></i>`; marqueeTrack.appendChild(s); }); }
 
+    /* الفئات (arcade) */
+    const allItems = [...products, ...saleItems];
+    const countOf = key => allItems.filter(p => p.cat === key).length;
+    const arcade = document.getElementById('arcade');
+    Object.entries(CATS).forEach(([key, c], i) => {
+      const a = document.createElement('a');
+      a.href = '#collection'; a.className = 'arch reveal'; a.dataset.cat = key;
+      a.style.transitionDelay = (i * 0.1) + 's';
+      a.setAttribute('aria-label', `${c.ar} — ${countOf(key)} قطع`);
+      a.innerHTML = `
+        <div class="arch-img"><img src="${c.img}" alt="${c.ar}" loading="lazy"></div>
+        <div class="arch-info">
+          <span class="arch-fr">${c.fr}</span>
+          <h3>${c.ar}</h3>
+          <span class="arch-count">${countOf(key)} قطع</span>
+        </div>`;
+      a.querySelector('img').addEventListener('error', e => e.target.style.visibility = 'hidden');
+      a.addEventListener('click', (e) => { e.preventDefault(); goToCategory(key); });
+      arcade.appendChild(a);
+    });
+
     /* Cards */
     function buildCard(item, opts){
       const card = document.createElement('div');
-      card.className = 'card reveal';
+      card.className = 'card';
+      card.dataset.cat = item.cat;
+      const catName = CATS[item.cat].ar;
+      const discount = opts.sale ? Math.round((1 - item.newPrice / item.oldPrice) * 100) : 0;
       const price = opts.sale
         ? `<div class="card-price"><span>${formatDA(item.newPrice)}</span><span class="old">${formatDA(item.oldPrice)}</span></div>`
         : `<div class="card-price"><span>${formatDA(item.price)}</span></div>`;
@@ -783,23 +1011,19 @@
         <div class="card-media">
           <img src="${item.img}" alt="${item.name}" loading="lazy">
           <button type="button" class="heart" aria-label="أضف إلى المفضلة"><i class="fa-regular fa-heart"></i></button>
-          ${opts.sale ? `<span class="badge">-${item.discount}</span>` : ''}
+          ${opts.sale ? `<span class="badge">-${discount}%</span>` : (item.isNew ? `<span class="badge new">جديد</span>` : '')}
           <span class="qv-hint"><i class="fa-solid fa-eye"></i> عرض سريع</span>
         </div>
         <div class="card-body">
+          <span class="card-cat">${catName}</span>
           <span class="card-name">${item.name}</span>
           ${price}
           <div class="swatches">${swatchesHTML(item.colors)}</div>
           <button type="button" class="btn shop-btn">تسوق الآن <i class="fa-solid fa-arrow-left"></i></button>
         </div>`;
-      const img = card.querySelector('img');
-      img.addEventListener('load', () => img.classList.add('loaded'), { once:true });
-      if(img.complete) img.classList.add('loaded');
-      img.addEventListener('error', () => img.classList.add('loaded'));
+      guardImg(card.querySelector('img'));
 
-      const data = opts.sale
-        ? { name:item.name, cat:"تخفيضات", price:item.newPrice, oldPrice:item.oldPrice, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors }
-        : { name:item.name, cat:item.cat, price:item.price, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors };
+      const data = { name:item.name, cat:catName, price: opts.sale ? item.newPrice : item.price, oldPrice: opts.sale ? item.oldPrice : null, img:item.img, sizes:item.sizes, age:item.age, colors:item.colors };
       let chosen = item.colors[0];
 
       card.querySelectorAll('.swatch').forEach(sw => sw.addEventListener('click', (e) => {
@@ -818,9 +1042,36 @@
     }
 
     const productsGrid = document.getElementById('productsGrid');
-    products.forEach((p, i) => { const c = buildCard(p, {}); c.style.transitionDelay = (i%4)*0.08+'s'; productsGrid.appendChild(c); });
+    products.forEach(p => productsGrid.appendChild(buildCard(p, {})));
     const saleGrid = document.getElementById('saleGrid');
-    saleItems.forEach((s, i) => { const c = buildCard(s, { sale:true }); c.style.transitionDelay = (i%3)*0.08+'s'; saleGrid.appendChild(c); });
+    saleItems.forEach((s, i) => { const c = buildCard(s, { sale:true }); c.classList.add('reveal'); c.style.transitionDelay = (i%3)*0.08+'s'; saleGrid.appendChild(c); });
+
+    /* Filter chips */
+    const chipsWrap = document.getElementById('chips');
+    let activeCat = 'all';
+    const chipDefs = [['all','الكل', products.length], ...Object.entries(CATS).map(([k,c]) => [k, c.ar, products.filter(p => p.cat === k).length])];
+    chipDefs.forEach(([key, label, n]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip' + (key === 'all' ? ' active' : ''); b.dataset.cat = key; b.setAttribute('role','tab');
+      b.innerHTML = `${label} <small>${n}</small>`;
+      b.addEventListener('click', () => setFilter(key));
+      chipsWrap.appendChild(b);
+    });
+    function setFilter(key){
+      activeCat = key;
+      chipsWrap.querySelectorAll('.chip').forEach(c => { const on = c.dataset.cat === key; c.classList.toggle('active', on); c.setAttribute('aria-selected', on); if(on) c.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' }); });
+      let i = 0;
+      productsGrid.querySelectorAll('.card').forEach(card => {
+        const match = key === 'all' || card.dataset.cat === key;
+        card.classList.toggle('is-hidden', !match);
+        if(match){ card.style.animation = 'none'; void card.offsetWidth; card.style.animation = `cardIn .65s ${i * 0.07}s var(--ease) both`; i++; }
+      });
+    }
+    function goToCategory(key){
+      setFilter(key);
+      document.getElementById('collection').scrollIntoView({ behavior:'smooth' });
+    }
+    setFilter('all');
 
     /* Testimonials */
     const carousel = document.getElementById('carousel'), dotsWrap = document.getElementById('carouselDots');
@@ -834,12 +1085,20 @@
     function goToSlide(i){ const slides = carousel.querySelectorAll('.testimonial-slide'), dots = dotsWrap.querySelectorAll('button'); slides[activeSlide].classList.remove('active'); dots[activeSlide].classList.remove('active'); activeSlide = i; slides[i].classList.add('active'); dots[i].classList.add('active'); }
     setInterval(() => goToSlide((activeSlide+1) % testimonials.length), 5500);
 
-    /* Navbar */
+    /* Navbar + hero parallax */
     const navbar = document.getElementById('navbar');
+    const heroImg = document.getElementById('heroImg');
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      navbar.classList.toggle('scrolled', y > 20);
-      document.getElementById('toTop').classList.toggle('show', y > 600);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        navbar.classList.toggle('scrolled', y > 20);
+        document.getElementById('toTop').classList.toggle('show', y > 600);
+        if(!isMobile && y < 900 && heroImg) heroImg.style.transform = `translateY(${y * 0.05}px) scale(1.06)`;
+        ticking = false;
+      });
     }, { passive: true });
 
     function closeMenu(){ document.getElementById('hamburger').classList.remove('open'); document.getElementById('navLinks').classList.remove('open'); document.getElementById('navOverlay').classList.remove('open'); }
@@ -850,6 +1109,13 @@
     document.getElementById('navOverlay').addEventListener('click', closeMenu);
     document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
     document.getElementById('toTop').addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+    /* Scroll spy */
+    const spyLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting){ spyLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id)); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['hero','categories','collection','sale','reviews'].forEach(id => { const el = document.getElementById(id); if(el) spyObserver.observe(el); });
 
     /* Quick view */
     const quickViewOverlay = document.getElementById('quickViewOverlay');
@@ -864,7 +1130,6 @@
       document.getElementById('qvPriceNew').textContent = formatDA(item.price);
       const oldEl = document.getElementById('qvPriceOld');
       if(item.oldPrice){ oldEl.textContent = formatDA(item.oldPrice); oldEl.style.display = 'inline'; } else { oldEl.style.display = 'none'; }
-      document.getElementById('qvAge').textContent = item.age;
 
       const colorsWrap = document.getElementById('qvColors');
       colorsWrap.innerHTML = swatchesHTML(item.colors);
@@ -912,7 +1177,10 @@
     const checkoutModalOverlay = document.getElementById('checkoutModalOverlay');
     const orderSuccessOverlay = document.getElementById('orderSuccessOverlay');
 
-    function updateCartCount(){ cartCountEl.textContent = cart.reduce((s, i) => s + i.qty, 0); }
+    function updateCartCount(){
+      cartCountEl.textContent = cart.reduce((s, i) => s + i.qty, 0);
+      cartCountEl.classList.remove('bump'); void cartCountEl.offsetWidth; cartCountEl.classList.add('bump');
+    }
     function addToCart(name, price, qty = 1, color = null){
       const existing = cart.find(i => i.name === name && i.color === color);
       if(existing){ existing.qty += qty; } else { cart.push({ name, price, qty, color }); }
@@ -964,9 +1232,6 @@
     const wilayaSelect = document.getElementById('wilaya');
     wilayas.forEach(w => { const o = document.createElement('option'); o.value = w; o.textContent = w; wilayaSelect.appendChild(o); });
 
-    const shipDifferentCheckbox = document.getElementById('shipDifferent'), shipAddressFields = document.getElementById('shipAddressFields');
-    shipDifferentCheckbox.addEventListener('change', () => shipAddressFields.classList.toggle('open', shipDifferentCheckbox.checked));
-
     let shippingCost = 650;
     document.getElementById('shipOptions').addEventListener('change', (e) => {
       document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
@@ -976,7 +1241,8 @@
     });
     function updateOrderSummary(){
       const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-      document.getElementById('osSubtotal').textContent = formatDA(subtotal);
+      const shipEl = document.getElementById('osShipping');
+      if(shipEl) shipEl.textContent = formatDA(shippingCost);
       document.getElementById('osTotal').textContent = formatDA(subtotal + shippingCost);
     }
     function renderOrderSummary(){
@@ -999,23 +1265,17 @@
     document.getElementById('checkoutForm').addEventListener('submit', (e) => {
       e.preventDefault();
       closeCheckoutModal();
-      cart = []; shippingCost = 650; updateCartCount();
+      cart = []; updateCartCount();
       orderSuccessOverlay.classList.add('show');
-      e.target.reset(); shipAddressFields.classList.remove('open');
+      e.target.reset();
       document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
       document.querySelector('.ship-option').classList.add('selected');
+      setTimeout(resetShippingPrices, 0);
     });
     function closeOrderSuccess(){ orderSuccessOverlay.classList.remove('show'); }
     document.getElementById('orderSuccessClose').addEventListener('click', closeOrderSuccess);
     document.getElementById('orderSuccessDone').addEventListener('click', closeOrderSuccess);
     orderSuccessOverlay.addEventListener('click', (e) => { if(e.target === orderSuccessOverlay) closeOrderSuccess(); });
-
-    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const note = document.getElementById('newsletterNote');
-      note.textContent = 'شكراً! تم إرسال كود الخصم إلى بريدك الإلكتروني.'; note.style.color = '#F5F1EA';
-      e.target.reset();
-    });
 
     /* Reveal + counters + progress */
     const revealObserver = new IntersectionObserver((entries) => { entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); revealObserver.unobserve(en.target); } }); }, { threshold: 0.1 });
@@ -1037,6 +1297,99 @@
 
     const scrollProgress = document.getElementById('scrollProgress');
     window.addEventListener('scroll', () => { const max = document.documentElement.scrollHeight - innerHeight; scrollProgress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%'; }, { passive:true });
+
+    /* أسعار التوصيل حسب الولاية */
+    const SHIPPING = {
+      1:[1400,1100],  2:[850,450],   3:[1000,700],  4:[850,500],   5:[850,450],
+      6:[850,500],    7:[950,600],   8:[1400,1100], 9:[850,450],  10:[850,450],
+     11:[1800,1400], 12:[950,600],  13:[850,500],  14:[850,500],  15:[850,450],
+     16:[700,450],   17:[900,600],  18:[850,500],  19:[850,450],  20:[900,600],
+     21:[850,500],   22:[850,500],  23:[850,500],  24:[900,600],  25:[500,400],
+     26:[850,450],   27:[850,500],  28:[850,500],  29:[900,600],  30:[1100,800],
+     31:[850,450],   32:[1100,800], 33:[2000,1700],34:[850,450],  35:[850,450],
+     36:[950,600],   37:[1800,1400],38:[850,500],  39:[1100,800], 40:[900,600],
+     41:[900,600],   42:[850,450],  43:[850,500],  44:[850,450],  45:[1100,800],
+     46:[900,600],   47:[1100,800], 48:[850,500],  49:[1400,1100],50:[2000,1700],
+     51:[1000,700],  52:[1400,1100],53:[1400,1100],54:[2000,1700],55:[1100,800],
+     56:[2000,1700], 57:[1100,800], 58:[1100,800]
+    };
+
+    const DEFAULT_OFFICE = 650;
+    const DEFAULT_HOME   = 800;
+    const shipOptionEls = document.querySelectorAll('#shipOptions .ship-option');
+
+    function applyShippingForWilaya(value){
+      const num = parseInt(value, 10);
+      const p = SHIPPING[num];
+      if(!p) return;
+      const home = p[0], office = p[1];
+      const prices = [office, home];
+      shipOptionEls.forEach((opt, i) => {
+        const input = opt.querySelector('input');
+        input.value = prices[i];
+        opt.querySelector('.ship-price').textContent = formatDA(prices[i]);
+        if(input.checked) shippingCost = prices[i];
+      });
+      updateOrderSummary();
+    }
+    function resetShippingPrices(){
+      const prices = [DEFAULT_OFFICE, DEFAULT_HOME];
+      shipOptionEls.forEach((opt, i) => {
+        const input = opt.querySelector('input');
+        input.value = prices[i];
+        opt.querySelector('.ship-price').textContent = formatDA(prices[i]);
+      });
+      shippingCost = DEFAULT_OFFICE;
+      updateOrderSummary();
+    }
+
+    wilayaSelect.addEventListener('change', (e) => applyShippingForWilaya(e.target.value));
+    document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
+      if(wilayaSelect.value) applyShippingForWilaya(wilayaSelect.value);
+    });
+
+    /* ============================================================
+       قائمة البلديات الديناميكية حسب الولاية
+       ============================================================ */
+    const ALGERIA_DATA_URL = 'https://raw.githubusercontent.com/el-amin-dev/algeria-wilayas-communes/main/data/algeria.json';
+    let algeriaData = null;
+    const communeSelectEl = document.getElementById('commune');
+
+    fetch(ALGERIA_DATA_URL)
+      .then(res => res.json())
+      .then(data => {
+        algeriaData = data.wilayas;
+      })
+      .catch(err => {
+        console.error('فشل تحميل بيانات البلديات:', err);
+        communeSelectEl.outerHTML = '<input type="text" id="commune" required placeholder="أدخل البلدية">';
+      });
+
+    wilayaSelect.addEventListener('change', function () {
+      const selectedWilayaCode = this.value.split(' - ')[0];
+      const wilayaNum = parseInt(selectedWilayaCode, 10);
+      if (!algeriaData || isNaN(wilayaNum)) return;
+
+      const wilayaObj = algeriaData.find(w => w.wilaya_num === wilayaNum);
+      if (!wilayaObj) return;
+
+      const allCommunes = [];
+      wilayaObj.dairas.forEach(daira => {
+        daira.communes.forEach(commune => {
+          allCommunes.push(commune.nom_ar);
+        });
+      });
+      allCommunes.sort((a, b) => a.localeCompare(b, 'ar'));
+
+      communeSelectEl.innerHTML = '<option value="" selected disabled>اختر البلدية…</option>';
+      allCommunes.forEach(name => {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        communeSelectEl.appendChild(opt);
+      });
+      communeSelectEl.disabled = false;
+    });
   </script>
 </body>
 </html>
